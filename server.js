@@ -11,3 +11,10 @@ app.use(express.static(path.join(__dirname,'assets')));
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use(bodyParser);
 mongoose.set('useFindAndModify',false);
+
+mongoose.connect("mongodb://localhost:27017/o-pharmacyDB", {  useNewUrlParser: true,useUnifiedTopology: true });
+mongoose.set('useCreateIndex', true)
+
+app.listen(3000, () => {
+    console.log('server is running now......')
+})
