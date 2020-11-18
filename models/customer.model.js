@@ -19,15 +19,13 @@ let customerSchema=mongoose.Schema({
 
     birthDate:{type:Date,require:true},
 
-    age:{type:string,require:true},
+    age:{type:String,require:true},
 
-    gander:{type:string,require:true},
+    gander:{type:String,require:true},
 
-    photo:{type:string,require:true}
+    photo:{type:String,require:true}
 
 })
 
 
-const customerSchema=mongoose.model('customer',customerSchema)
-
-module.exports=customerSchema
+module.exports=mongoose.model('customer',customerSchema)

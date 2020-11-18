@@ -24,7 +24,4 @@ let pharmacySchema=mongoose.Schema({
 
 })
 
-
-const pharmacySchema=mongoose.model('pharmacy',pharmacySchema)
-
-module.exports=pharmacySchema
+module.exports==mongoose.model('pharmacy',pharmacySchema)
