@@ -23,7 +23,7 @@ let customerSchema=mongoose.Schema({
 
     gander:{type:String,require:true},
 
-    photo:{type:String,require:true}
+    photo:{type:String,require:false}
 
 })
 
