@@ -1,6 +1,6 @@
 const express = require('express');
 const app=express();
-const bodyParser=require('body-parser').urlencoded({extended:false});
+const bodyParser=require('body-parser').urlencoded({extended:true});
 const path=require('path');
 const mongoose=require('mongoose');
 const cors=require('cors');
@@ -12,8 +12,10 @@ app.use(express.static(path.join(__dirname,'assets')));
 app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use(bodyParser);
 mongoose.set('useFindAndModify',false);
+app.use(express.json());
 app.use(indexRoute);
-mongoose.connect("mongodb://localhost:27017/o-pharmacyDB", {  useNewUrlParser: true,useUnifiedTopology: true });
+//o-pharmacyDB
+mongoose.connect("mongodb://localhost:27017/myDB3", {  useNewUrlParser: true,useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true)
 
 app.listen(3000, () => {
