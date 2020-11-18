@@ -9,7 +9,7 @@ let pharmacySchema=mongoose.Schema({
 
     password:{type:String,require:true},
 
-    isVerifed:{type:Boolean,require:true,defult:false},
+    isVerified:{type:Boolean,require:true,defult:false},
 
     phones:{type:Array,require:true},
 

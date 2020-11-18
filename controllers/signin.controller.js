@@ -16,7 +16,15 @@ let {email,password}=req.body;
             if(match){
                 jwt.sign(
                     //retrieve in token 
-                    {_id:pharmacies._id,name:pharmacies.name,password:pharmacies.password},
+                    {
+                        _id:pharmacies._id,
+                        name:pharmacies.name,
+                        isVerified:pharmacies.isVerified,
+                        phones:pharmacies.phones,
+                        locationAsAderss:pharmacies.locationAsAderss,
+                        locationAsCoordinates:pharmacies.locationAsCoordinates,
+                        rate:pharmacies.rate
+                    },
                     //secret key pharmjwt
                     "pharmjwt",
                     //send token in header
