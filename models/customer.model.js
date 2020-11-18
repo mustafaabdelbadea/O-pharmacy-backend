@@ -1,29 +1,27 @@
 const mongoose=require('mongoose');
-
-
 let customerSchema=mongoose.Schema({
 
-    name:{type:String,require:true},
+    name:{type:String,required:true},
 
-    email:{type:String,require:true,unique:true},
+    email:{type:String,required:true,unique:true},
 
-    password:{type:String,require:true},
+    password:{type:String,required:true},
 
-    isVerifed:{type:Boolean,require:true,defult:false},
+    isVerifed:{type:Boolean,required:true,defult:false},
 
-    phone:{type:String,require:true},
+    phone:{type:String,required:true},
 
-    locationAsAderss:{type:String,require:true},
+    locationAsAderss:{type:String,required:true},
 
-    locationAsCoordinates:{type:String,require:true},
+    locationAsCoordinates:{type:String,required:true},
 
-    birthDate:{type:Date,require:true},
+    birthDate:{type:Date,required:true},
 
-    age:{type:String,require:true},
+    age:{type:String,required:true},
 
-    gander:{type:String,require:true},
+    gander:{type:String,required:true},
 
-    photo:{type:String,require:false}
+    photo:{type:String,required:false}
 
 })
 

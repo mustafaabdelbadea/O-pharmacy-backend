@@ -3,23 +3,23 @@ const mongoose=require('mongoose');
 
 let pharmacySchema=mongoose.Schema({
 
-    name:{type:String,require:true},
+    name:{type:String,required:true},
 
-    email:{type:String,require:true,unique:true},
+    email:{type:String,required:true,unique:true},
 
-    password:{type:String,require:true},
+    password:{type:String,required:true},
 
-    isVerified:{type:Boolean,require:true,defult:false},
+    isVerified:{type:Boolean,required:true,defult:false},
 
-    phones:{type:Array,require:true},
+    phones:[{type:Number,required:true}],
 
-    locationAsAderss:{type:String,require:true},
+    locationAsAderss:{type:String,required:true},
 
-    locationAsCoordinates:{type:String,require:true},
+    locationAsCoordinates:{type:String,required:true},
 
-    rate:{type:Number,require:false},
+    rate:{type:Number,required:false},
 
-    logo:{type:String,require:false}
+    logo:{type:String,required:false}
 
 
 })

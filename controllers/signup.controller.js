@@ -11,7 +11,7 @@ let {name,email,password,confirmPassword,phones,locationAsAderss,locationAsCoord
 
 try{
   const pharmacy = await pharmaciesModel.findOne({ email }); // search if email exist in data base
-  console.log(pharmacy);
+  //console.log(pharmacy);
   if (pharmacy) {res.json("email is alrady exist")// if email exist
   } 
   else 
@@ -23,6 +23,7 @@ try{
    });
    // const match = await bcrypt.compare(password, pharmacy.passwordHash);
   }
+
 }catch(e)
 {// print error if it exist
   res.json(e)
@@ -38,7 +39,7 @@ let {name,email,password,confirmPassword,phone,locationAsAderss,locationAsCoordi
 
 try{
   const customer = await customersModel.findOne({ email });// search if email exist in data base
-  console.log(customer);
+  // console.log(customer);
   if (customer) {res.json("email is alrady exist")// if email exist
   } 
   else 
