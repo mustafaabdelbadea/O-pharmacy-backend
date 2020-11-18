@@ -24,4 +24,5 @@ let pharmacySchema=mongoose.Schema({
 
 })
 
-module.exports==mongoose.model('pharmacy',pharmacySchema)
+
+module.exports=mongoose.model('pharmacy',pharmacySchema)
