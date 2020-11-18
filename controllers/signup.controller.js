@@ -15,8 +15,8 @@ try{
   if (pharmacy) {res.json("email is alrady exist")// if email exist
   } 
   else 
-  { // if email not exist will hash password and save info in database and print success
-    bcrypt.hash(password, 8, async function (err, hashPassword) {
+  {
+    bcrypt.hash(password, 8, async (err, hashPassword)=> {
      let pharmacy = new pharmaciesModel({name,email,password: hashPassword,phones,locationAsAderss,locationAsCoordinates})
      await pharmacy.save();
      res.json({massege:"success"})         
@@ -42,8 +42,8 @@ try{
   if (customer) {res.json("email is alrady exist")// if email exist
   } 
   else 
-  { // if email not exist will hash password and save info in database and print success
-    bcrypt.hash(password, 8, async function (err, hashPassword) {
+  {
+    bcrypt.hash(password, 8, async (err, hashPassword)=> {
      let customer = new customersModel({name,email,password: hashPassword,phone,locationAsAderss,locationAsCoordinates,birthDate,gander})
      await customer.save();
      res.json({massege:"success"})         
