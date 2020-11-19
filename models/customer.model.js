@@ -13,11 +13,9 @@ let customerSchema=mongoose.Schema({
 
     locationAsAddress:{type:String,required:true},
 
-    locationAsCoordinates:{type:String,required:true},
+    locationAsCoordinates :  { type: {type:String,default:'Point'}, coordinates: String},
 
     birthDate:{type:Date,required:true},
-
-    age:{type:String,required:false},
 
     gander:{type:String,required:true},
 
