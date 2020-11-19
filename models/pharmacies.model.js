@@ -9,11 +9,11 @@ let pharmacySchema=mongoose.Schema({
 
     password:{type:String,required:true},
 
-    isVerified:{type:Boolean,required:true,defult:false},
+    isVerified:{type:Boolean,required:true,default:false},
 
     phones:[{type:Number,required:true}],
 
-    locationAsAderss:{type:String,required:true},
+    locationAsAddress:{type:String,required:true},
 
     locationAsCoordinates:{type:String,required:true},
 
@@ -21,7 +21,7 @@ let pharmacySchema=mongoose.Schema({
 
     logo:{type:String,required:false},
 
-    role:{type:String,required:true,defult:"pharmacy"}
+    role:{type:String,required:true,default:"pharmacy"}
 
 
 })

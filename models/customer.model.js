@@ -7,23 +7,23 @@ let customerSchema=mongoose.Schema({
 
     password:{type:String,required:true},
 
-    isVerifed:{type:Boolean,required:true,defult:false},
+    isVerifed:{type:Boolean,required:true,default:false},
 
     phone:{type:String,required:true,unique:true},
 
-    locationAsAderss:{type:String,required:true},
+    locationAsAddress:{type:String,required:true},
 
     locationAsCoordinates:{type:String,required:true},
 
     birthDate:{type:Date,required:true},
 
-    age:{type:String,required:true},
+    age:{type:String,required:false},
 
     gander:{type:String,required:true},
 
     photo:{type:String,required:false},
 
-    role:{type:String,required:true,defult:"customer"}
+    role:{type:String,required:true,default:"customer"}
 
 })
 
