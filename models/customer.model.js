@@ -9,7 +9,7 @@ let customerSchema=mongoose.Schema({
 
     isVerifed:{type:Boolean,required:true,defult:false},
 
-    phone:{type:String,required:true},
+    phone:{type:String,required:true,unique:true},
 
     locationAsAderss:{type:String,required:true},
 
@@ -21,7 +21,9 @@ let customerSchema=mongoose.Schema({
 
     gander:{type:String,required:true},
 
-    photo:{type:String,required:false}
+    photo:{type:String,required:false},
+
+    role:{type:String,required:true,defult:"customer"}
 
 })
 

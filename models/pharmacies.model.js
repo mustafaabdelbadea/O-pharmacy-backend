@@ -19,7 +19,9 @@ let pharmacySchema=mongoose.Schema({
 
     rate:{type:Number,required:false},
 
-    logo:{type:String,required:false}
+    logo:{type:String,required:false},
+
+    role:{type:String,required:true,defult:"pharmacy"}
 
 
 })
