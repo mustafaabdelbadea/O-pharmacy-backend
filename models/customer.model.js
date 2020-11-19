@@ -7,7 +7,7 @@ let customerSchema=mongoose.Schema({
 
     password:{type:String,required:true},
 
-    isVerifed:{type:Boolean,required:true,default:false},
+    isVerified:{type:Boolean,required:true,default:false},
 
     phone:{type:String,required:true,unique:true},
 
