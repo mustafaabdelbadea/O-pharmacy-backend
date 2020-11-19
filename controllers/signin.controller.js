@@ -103,6 +103,10 @@ module.exports.home=async(req,res)=>{
     //         }
     //     }
     //  )
-    let pharmacies=await pharmaciesModel.find({});
-     res.json(pharmacies);    
+
+    //erquation to calculate date
+    let customers=await customerModel.findOne({});
+    let age=Math.floor((Date.now() - new Date(customers.birthDate))/ 1000 / 60 / 60 / 24 / 365);
+    console.log(age)
+     res.json(customers);    
 }
