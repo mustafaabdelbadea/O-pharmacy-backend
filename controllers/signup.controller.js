@@ -113,7 +113,7 @@ let {name,email,password,confirmPassword,phone,locationAsAddress,locationAsCoord
            service:"gmail",
            auth: {
              user: "3bdallhmz99@gmail.com", // generated ethereal user
-             pass: "amz4121099mz**", // generated ethereal password
+             pass: "", // generated ethereal password
            },
          });
        
