@@ -90,8 +90,9 @@ module.exports.customerSignup=async(req,res)=>{
 
     //assign data in variables to save it 
 let {name,email,password,confirmPassword,phone,locationAsAddress,locationAsCoordinates,birthDate,gander} = req.body
-
-
+const errors = validationResult(req);
+console.log(errors);
+if (errors.isEmpty()){
   const customerEmail = await customersModel.findOne({ email });// search if email exist in data base
   const customerPhone = await customersModel.findOne({ phone });// search if phone exist in data base
   // console.log(customer);
@@ -158,12 +159,13 @@ let {name,email,password,confirmPassword,phone,locationAsAddress,locationAsCoord
       }  
     
   });
-
+   }
    // const match = await bcrypt.compare(password, customer.passwordHash);
   }
 }
 
-
-
+else{
+  res.json({message:'enter valid data'});
+}
 }
 
