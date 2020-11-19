@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
-
+const jwt =require('jsonwebtoken');
+const nodemailer = require("nodemailer");
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
 
@@ -22,6 +23,45 @@ let {name,email,password,confirmPassword,phones,locationAsAddress,locationAsCoor
      
 try{
      await pharmacy.save();
+     jwt.sign(pharmacy.email,      //retrieve in token    
+              "pharmjwt",         //secret key pharmjwt
+      
+      //send virifay mail
+      async(err,token)=>{
+        let transporter = nodemailer.createTransport({
+          service:"gmail",
+          auth: {
+            user: "3bdallhmz99@gmail.com", // generated ethereal user
+            pass: "", // generated ethereal password
+          },
+        });
+      
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+          from: '"Fred Foo" <3bdallhmz99@gmail.com>', // sender address
+          to: req.body.email, // list of receivers
+          subject: "Hello ✔", // Subject line
+          text: "Hello world?", // plain text body
+          html: `
+        
+          <div style="background-color:#000;color:#fff; padding:100px">
+          
+        <h1 style="margin:50px"> <a href="http://${req.headers.host}/pharmacyVerifyEmail/${token}">click to confirm</a>  </h1>
+          
+          </div>
+      
+      
+          `, // html body
+          
+        },(error)=>{
+          
+          if(error)
+            console.log(error);
+          else
+           console.log("email sent");   
+        });
+      }
+  )
      res.json({massege:"success"}) 
     }
 catch(e)
@@ -63,12 +103,52 @@ let {name,email,password,confirmPassword,phone,locationAsAddress,locationAsCoord
      let customer = new customersModel({name,email,password: hashPassword,phone,locationAsAddress,locationAsCoordinates,birthDate,gander})
     
      try{
-       await customer.save();
-       res.json({massege:"success"})
-    }catch(e)
-    {// print DB error if it exist
-       res.json(e)
-    }  
+      await customer.save();
+      jwt.sign(customer.email,      //retrieve in token    
+               "pharmjwt",         //secret key pharmjwt
+       
+       //send virifay mail
+       async(err,token)=>{
+         let transporter = nodemailer.createTransport({
+           service:"gmail",
+           auth: {
+             user: "3bdallhmz99@gmail.com", // generated ethereal user
+             pass: "amz4121099mz**", // generated ethereal password
+           },
+         });
+       
+         // send mail with defined transport object
+         let info = await transporter.sendMail({
+           from: '"Fred Foo" <3bdallhmz99@gmail.com>', // sender address
+           to: req.body.email, // list of receivers
+           subject: "Hello ✔", // Subject line
+           text: "Hello world?", // plain text body
+           html: `
+         
+           <div style="background-color:#000;color:#fff; padding:100px">
+           
+         <h1 style="margin:50px"> <a href="http://${req.headers.host}/customerVerifyEmail/${token}">click to confirm</a>  </h1>
+           
+           </div>
+       
+       
+           `, // html body
+           
+         },(error)=>{
+           
+           if(error)
+             console.log(error);
+           else
+            console.log("email sent");   
+         });
+       }
+   )
+      res.json({massege:"success"}) 
+     }
+ catch(e)
+      {// print error if it exist
+        res.json(e)
+      }  
     
   });
 
