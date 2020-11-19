@@ -3,14 +3,15 @@ const jwt =require('jsonwebtoken')
 //import models 
 const pharmaciesModel=require('../models/pharmacies.model');
 const customerModel=require('../models/customer.model');
+const { Mongoose } = require('mongoose');
 module.exports.pharmacySignin=async (req,res)=>{
 let {email,password}=req.body;        
     let pharmacies=await pharmaciesModel.findOne({email});
         if(pharmacies){
             //check if email is verified or not 
-            if(pharmacies.isVerified==false){
-                res.json({message:"email not Verified"});
-           }
+        //     if(pharmacies.isVerified==false){
+        //         res.json({message:"email not Verified"});
+        //    }
            // check hased password
            const match =await bcrypt.compare(password,pharmacies.password)
             if(match){
@@ -89,6 +90,19 @@ module.exports.customerSignin=async(req,res)=>{
 //     });
 // }
 module.exports.home=async(req,res)=>{
-    let customers=await customerModel.findOne({});
-     res.json(customers);
+
+    // pharmaciesModel.find(
+    //     {
+    //         locationAsCoordinates:
+    //         { $near:
+    //            {
+    //              $geometry: { type: "Point",  coordinates: [ 29.977607600000002, 31.090821799999997] },
+    //              $minDistance: 1000,
+    //              $maxDistance: 5000
+    //            }
+    //         }
+    //     }
+    //  )
+    let pharmacies=await pharmaciesModel.find({});
+     res.json(pharmacies);    
 }
