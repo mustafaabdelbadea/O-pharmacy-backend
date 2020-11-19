@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt =require('jsonwebtoken');
+const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
@@ -9,7 +10,10 @@ module.exports.pharmacySignup=async (req,res)=>{
     console.log(req.body);
 //assign data in variables to save it 
 let {name,email,password,confirmPassword,phones,locationAsAddress,locationAsCoordinates} = req.body;
-
+const errors = validationResult(req);
+console.log(errors);
+if (errors.isEmpty()){
+  
 
   const pharmacy = await pharmaciesModel.findOne({ email }); // search if email exist in data base
   //console.log(pharmacy);
@@ -70,7 +74,10 @@ catch(e)
      }        
 
     });
+  }
    // const match = await bcrypt.compare(password, pharmacy.passwordHash);
+  }else{
+    res.json({message:'enter valid data'});
   }
 
 

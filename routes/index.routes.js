@@ -10,7 +10,7 @@ indexRouter.get('/',authMiddleware,signinController.home);
 indexRouter.post('/pharmacySignin',signinController.pharmacySignin);
 indexRouter.post('/customerSignin',signinController.customerSignin);
 
-indexRouter.post('/pharmacySignup',signupController.pharmacySignup);
+indexRouter.post('/pharmacySignup',validation.signupValidation,signupController.pharmacySignup);
 indexRouter.post('/customerSignup',signupController.customerSignup);
 indexRouter.get('/pharmacyVerifyEmail/:token',verifyEmail.pharmacyEmail);
 indexRouter.get('/customerVerifyEmail/:token',verifyEmail.customerEmail);
