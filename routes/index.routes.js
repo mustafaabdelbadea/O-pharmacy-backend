@@ -4,11 +4,12 @@ const verifyToken = require('../middlewares/auth');
 const signupController = require('../controllers/signup.controller');
 const verifyEmail = require('../controllers/verifyEmail.controller');
 const validation = require('../controllers/validation.controller');
-const authMiddleware = require('../middlewares/auth')
+const authMiddleware = require('../middlewares/auth');
+const signinVaildation=require('../controllers/signinValidation');
 indexRouter.get('/', authMiddleware, signinController.home);
 
-indexRouter.post('/pharmacySignin', signinController.pharmacySignin);
-indexRouter.post('/customerSignin', signinController.customerSignin);
+indexRouter.post('/pharmacySignin',signinVaildation.signinValidation, signinController.pharmacySignin);
+indexRouter.post('/customerSignin',signinVaildation.signinValidation, signinController.customerSignin);
 
 indexRouter.post('/pharmacySignup', validation.signupValidation, signupController.pharmacySignup);
 indexRouter.post('/customerSignup', validation.signupValidation, signupController.customerSignup);

@@ -1,17 +1,21 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 //import models 
+const { check, validationResult } = require("express-validator");
 const pharmaciesModel = require('../models/pharmacies.model');
 const customerModel = require('../models/customer.model');
 const { Mongoose } = require('mongoose');
 module.exports.pharmacySignin = async (req, res) => {
     let { email, password } = req.body;
+    const errors = validationResult(req);
+  console.log(errors);
+  if (errors.isEmpty()) {
     let pharmacies = await pharmaciesModel.findOne({ email });
     if (pharmacies) {
         //check if email is verified or not 
-        //     if(pharmacies.isVerified==false){
-        //         res.json({message:"email not Verified"});
-        //    }
+            if(pharmacies.isVerified==false){
+                res.json({message:"email not Verified"});
+           }
         // check hased password
         const match = await bcrypt.compare(password, pharmacies.password)
         if (match) {
@@ -47,8 +51,16 @@ module.exports.pharmacySignin = async (req, res) => {
         res.json({ msg: "Invalid email or password" });
     }
 }
+else{
+    res.json({ message: 'enter valid data' });
+
+}
+}
 module.exports.customerSignin = async (req, res) => {
     let { email, password } = req.body;
+    const errors = validationResult(req);
+    console.log(errors);
+    if (errors.isEmpty()) {
     let customers = await customerModel.findOne({ email });
     if (customers) {
         //check if email is verified or not 
@@ -58,9 +70,16 @@ module.exports.customerSignin = async (req, res) => {
         // check hased password
         const match = await bcrypt.compare(password, customers.password)
         if (match) {
+         try {
+             
+          
             jwt.sign(
                 //retrieve in token 
-                { _id: customers._id, name: customers.name, password: customers.password },
+                { 
+                    _id: customers._id,
+                     name: customers.name,
+                      password: customers.password
+                     },
                 //secret key pharmjwt
                 "pharmjwt",
                 //send token in header
@@ -72,6 +91,10 @@ module.exports.customerSignin = async (req, res) => {
                     )
                 }
             )
+        }
+            catch (error) {
+             console.log(error)
+            }
             // res.json({msg:"success"});
         }
         else {
@@ -80,6 +103,11 @@ module.exports.customerSignin = async (req, res) => {
     }
     else {
         res.json({ msg: "Invalid email or password" });
+    }
+}
+    else{
+        res.json({ message: 'enter valid data' });
+    
     }
 }
 
