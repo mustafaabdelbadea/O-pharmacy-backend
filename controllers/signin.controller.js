@@ -8,106 +8,106 @@ const { Mongoose } = require('mongoose');
 module.exports.pharmacySignin = async (req, res) => {
     let { email, password } = req.body;
     const errors = validationResult(req);
-  console.log(errors);
-  if (errors.isEmpty()) {
-    let pharmacies = await pharmaciesModel.findOne({ email });
-    if (pharmacies) {
-        //check if email is verified or not 
-            if(pharmacies.isVerified==false){
-                res.json({message:"email not Verified"});
-           }
-        // check hased password
-        const match = await bcrypt.compare(password, pharmacies.password)
-        if (match) {
-            jwt.sign(
-                //retrieve in token 
-                {
-                    _id: pharmacies._id,
-                    name: pharmacies.name,
-                    isVerified: pharmacies.isVerified,
-                    phones: pharmacies.phones,
-                    locationAsAderss: pharmacies.locationAsAderss,
-                    locationAsCoordinates: pharmacies.locationAsCoordinates,
-                    rate: pharmacies.rate
-                },
-                //secret key pharmjwt
-                "pharmjwt",
-                //send token in header
-                (err, token) => {
-                    res.header('token', token).json(
-                        {
-                            name: pharmacies.name
-                        }
-                    )
-                }
-            )
-            // res.json({msg:"success"});
+    console.log(errors);
+    if (errors.isEmpty()) {
+        let pharmacies = await pharmaciesModel.findOne({ email });
+        if (pharmacies) {
+            //check if email is verified or not 
+            if (pharmacies.isVerified == false) {
+                res.json({ message: "email not Verified" });
+            }
+            // check hased password
+            const match = await bcrypt.compare(password, pharmacies.password)
+            if (match) {
+                jwt.sign(
+                    //retrieve in token 
+                    {
+                        _id: pharmacies._id,
+                        name: pharmacies.name,
+                        isVerified: pharmacies.isVerified,
+                        phones: pharmacies.phones,
+                        locationAsAderss: pharmacies.locationAsAderss,
+                        locationAsCoordinates: pharmacies.locationAsCoordinates,
+                        rate: pharmacies.rate
+                    },
+                    //secret key pharmjwt
+                    "pharmjwt",
+                    //send token in header
+                    (err, token) => {
+                        res.header('token', token).json(
+                            {
+                                name: pharmacies.name
+                            }
+                        )
+                    }
+                )
+                // res.json({msg:"success"});
+            }
+            else {
+                res.json({ msg: "Invalid email or password" });
+            }
         }
         else {
             res.json({ msg: "Invalid email or password" });
         }
     }
     else {
-        res.json({ msg: "Invalid email or password" });
-    }
-}
-else{
-    res.json({ message: 'enter valid data' });
+        res.json({ message: 'enter valid data' });
 
-}
+    }
 }
 module.exports.customerSignin = async (req, res) => {
     let { email, password } = req.body;
     const errors = validationResult(req);
     console.log(errors);
     if (errors.isEmpty()) {
-    let customers = await customerModel.findOne({ email });
-    if (customers) {
-        //check if email is verified or not 
-        if (customers.isVerified == false) {
-            res.json({ message: "email not Verified" });
-        }
-        // check hased password
-        const match = await bcrypt.compare(password, customers.password)
-        if (match) {
-         try {
-             
-          
-            jwt.sign(
-                //retrieve in token 
-                { 
-                    _id: customers._id,
-                     name: customers.name,
-                      password: customers.password
-                     },
-                //secret key pharmjwt
-                "pharmjwt",
-                //send token in header
-                (err, token) => {
-                    res.header('token', token).json(
+        let customers = await customerModel.findOne({ email });
+        if (customers) {
+            //check if email is verified or not 
+            if (customers.isVerified == false) {
+                res.json({ message: "email not Verified" });
+            }
+            // check hased password
+            const match = await bcrypt.compare(password, customers.password)
+            if (match) {
+                try {
+
+
+                    jwt.sign(
+                        //retrieve in token 
                         {
-                            name: customers.name
+                            _id: customers._id,
+                            name: customers.name,
+                            password: customers.password
+                        },
+                        //secret key pharmjwt
+                        "pharmjwt",
+                        //send token in header
+                        (err, token) => {
+                            res.header('token', token).json(
+                                {
+                                    name: customers.name
+                                }
+                            )
                         }
                     )
                 }
-            )
-        }
-            catch (error) {
-             console.log(error)
+                catch (error) {
+                    console.log(error)
+                }
+                // res.json({msg:"success"});
             }
-            // res.json({msg:"success"});
+            else {
+                res.json({ msg: "Invalid email or password" });
+            }
         }
         else {
             res.json({ msg: "Invalid email or password" });
         }
     }
     else {
-        res.json({ msg: "Invalid email or password" });
-    }
-}
-    else{
         res.json({ message: 'enter valid data' });
-    
+
     }
 }
 
