@@ -24,11 +24,12 @@ module.exports.pharmacySignin = async (req, res) => {
                     {
                         _id: pharmacies._id,
                         name: pharmacies.name,
-                        isVerified: pharmacies.isVerified,
                         phones: pharmacies.phones,
                         locationAsAderss: pharmacies.locationAsAderss,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
-                        rate: pharmacies.rate
+                        rate: pharmacies.rate,
+                        role:pharmacies.role,
+                        logo:pharmacies.logo
                     },
                     //secret key pharmjwt
                     "pharmjwt",
@@ -64,9 +65,9 @@ module.exports.customerSignin = async (req, res) => {
         let customers = await customerModel.findOne({ email });
         if (customers) {
             //check if email is verified or not 
-            if (customers.isVerified == false) {
-                res.json({ message: "email not Verified" });
-            }
+            // if (customers.isVerified == false) {
+            //     res.json({ message: "email not Verified" });
+            // }
             // check hased password
             const match = await bcrypt.compare(password, customers.password)
             if (match) {
@@ -78,7 +79,15 @@ module.exports.customerSignin = async (req, res) => {
                         {
                             _id: customers._id,
                             name: customers.name,
-                            password: customers.password
+                            email:customers.email,
+                            phone:customers.phone,
+                            locationAsAddress:customers.locationAsAddress,
+                            locationAsCoordinates:customers.locationAsCoordinates,
+                            birthDate:customers.birthDate,
+                            age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
+                            gander:customers.gander,
+                            photo:customers.photo,
+                            role:customers.role
                         },
                         //secret key pharmjwt
                         "pharmjwt",
@@ -134,7 +143,7 @@ module.exports.home = async (req, res) => {
 
     //erquation to calculate date
     let customers = await customerModel.findOne({});
-    let age = Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365);
-    console.log(age)
+    // let age = Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365);
+    // console.log(age)
     res.json(customers);
 }
