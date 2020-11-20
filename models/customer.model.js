@@ -1,27 +1,67 @@
 const mongoose = require('mongoose');
 let customerSchema = mongoose.Schema({
 
-    name: { type: String, required: true },
+    name: {
+        type: String,
+        required: true
+    },
 
-    email: { type: String, required: true, unique: true },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
 
-    password: { type: String, required: true },
+    password: {
+        type: String,
+        required: true
+    },
 
-    isVerified: { type: Boolean, required: true, default: false },
+    isVerified: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
 
-    phone: { type: String, required: true, unique: true },
+    phone: {
+        type: String,
+        required: true,
+        unique: true
+    },
 
-    locationAsAddress: { type: String, required: true },
+    locationAsAddress: {
+        type: String,
+        required: true
+    },
 
-    locationAsCoordinates: { type: { type: String, default: 'Point' }, coordinates: String },
+    locationAsCoordinates: {
+        type: {
+            type: String,
+            default: 'Point'
+        },
+        coordinates: String
+    },
 
-    birthDate: { type: Date, required: true },
+    birthDate: {
+        type: Date,
+        required: true
+    },
 
-    gander: { type: String, required: true },
+    gander: {
+        type: String,
+        required: true
+    },
 
-    photo: { type: String, required: false },
+    photo: {
+        type: String,
+        required: false
+    },
 
-    role: { type: String, required: true, default: "customer" }
+    role: {
+        type: String,
+        required: true,
+        default: "customer"
+    }
 
 })
 
