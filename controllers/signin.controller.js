@@ -65,9 +65,9 @@ module.exports.customerSignin = async (req, res) => {
         let customers = await customerModel.findOne({ email });
         if (customers) {
             //check if email is verified or not 
-            // if (customers.isVerified == false) {
-            //     res.json({ message: "email not Verified" });
-            // }
+            if (customers.isVerified == false) {
+                res.json({ message: "email not Verified" });
+            }
             // check hased password
             const match = await bcrypt.compare(password, customers.password)
             if (match) {
