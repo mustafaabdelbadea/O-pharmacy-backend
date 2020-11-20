@@ -6,11 +6,11 @@ const verifyEmail = require('../controllers/verifyEmail.controller');
 const validation = require('../controllers/validation.controller');
 const authMiddleware = require('../middlewares/auth');
 const signinVaildation = require('../controllers/signinValidation');
+const  ourPharmacies  = require('../controllers/ourPharmacies.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
-
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
-
+indexRouter.get('/ourPharmacies',authMiddleware,ourPharmacies.ourPharmacies);
 indexRouter.post('/pharmacySignup', validation.signupValidation, signupController.pharmacySignup);
 indexRouter.post('/customerSignup', validation.signupValidation, signupController.customerSignup);
 indexRouter.get('/pharmacyVerifyEmail/:token', verifyEmail.pharmacyEmail);
