@@ -11,8 +11,6 @@ module.exports.signupValidation = [
     }
     return true;
   }),
-  //to check phone in customer and phones in phramacies
-  check('phone','invalid input').matches(/^((201)|(01))[0-9]{9}/)||check('phones','invalid input').matches(/^((201)|(01))[0-9]{9}/)
   
 
 ]
