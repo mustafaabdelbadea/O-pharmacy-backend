@@ -9,7 +9,14 @@ module.exports.pharmacySignup = async (req, res) => {
 
   console.log(req.body);
   //assign data in variables to save it 
-  let { name, email, password, confirmPassword, phones, locationAsAddress, locationAsCoordinates } = req.body;
+  let { name,
+        email,
+        password, 
+        confirmPassword, 
+        phones, 
+        locationAsAddress, 
+        locationAsCoordinates } = req.body;
+  
   const errors = validationResult(req);
   console.log(errors);
   if (errors.isEmpty()) {
@@ -23,7 +30,12 @@ module.exports.pharmacySignup = async (req, res) => {
     else {// if email not exist will hash password and save info in database and print success
 
       bcrypt.hash(password, 8, async (err, hashPassword) => {
-        let pharmacy = new pharmaciesModel({ name, email, password: hashPassword, phones, locationAsAddress, locationAsCoordinates })
+        let pharmacy = new pharmaciesModel({ name,
+                                             email, 
+                                             password: hashPassword, 
+                                             phones, 
+                                             locationAsAddress,
+                                              locationAsCoordinates })
 
         try {
           await pharmacy.save();
@@ -88,7 +100,17 @@ module.exports.customerSignup = async (req, res) => {
   console.log(req.body);
 
   //assign data in variables to save it 
-  let { name, email, password, confirmPassword, phone, locationAsAddress, locationAsCoordinates, birthDate, gander } = req.body
+  let { name, 
+        email,
+        password, 
+        confirmPassword, 
+        phone, 
+        locationAsAddress, 
+        locationAsCoordinates, 
+        birthDate, 
+        gander } = req.body
+  
+  
   const errors = validationResult(req);
   console.log(errors);
   if (errors.isEmpty()) {
@@ -105,7 +127,14 @@ module.exports.customerSignup = async (req, res) => {
       else {   // if email and phone not exist will hash password and save info in database and print success
 
         bcrypt.hash(password, 8, async (err, hashPassword) => {
-          let customer = new customersModel({ name, email, password: hashPassword, phone, locationAsAddress, locationAsCoordinates, birthDate, gander })
+          let customer = new customersModel({ name, 
+                                              email, 
+                                              password: hashPassword, 
+                                              phone, 
+                                              locationAsAddress, 
+                                              locationAsCoordinates, 
+                                              birthDate, 
+                                              gander })
 
           try {
             await customer.save();
