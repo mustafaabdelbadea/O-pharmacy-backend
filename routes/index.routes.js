@@ -17,6 +17,8 @@ indexRouter.post('/pharmacySignup', validation.signupValidation, signupControlle
 indexRouter.post('/customerSignup', phoneValidation.phoneValidation,validation.signupValidation, signupController.customerSignup);
 indexRouter.get('/pharmacyVerifyEmail/:token', verifyEmail.pharmacyEmail);
 indexRouter.get('/customerVerifyEmail/:token', verifyEmail.customerEmail);
+indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medicalhistory );
+indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
 indexRouter.get('*',notfoundController.notfound )
 //validation.signupValidation,
 
