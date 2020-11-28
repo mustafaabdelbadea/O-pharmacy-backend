@@ -8,7 +8,8 @@ const authMiddleware = require('../middlewares/auth');
 const signinVaildation = require('../controllers/signinValidation');
 const  ourPharmacies  = require('../controllers/ourPharmacies.controller');
 const notfoundController=require('../controllers/notfound.controller');
-const phoneValidation=require('../controllers/phoneValidation.controller')
+const phoneValidation=require('../controllers/phoneValidation.controller');
+const medicalhistoryController=require('../controllers/medicalhistory.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
