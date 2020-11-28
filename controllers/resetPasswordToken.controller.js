@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
+const { check, validationResult } = require("express-validator");
 
 const customersModel = require("../models/customer.model");
 
@@ -19,13 +20,9 @@ module.exports.customerResetPassword = async (req, res) => {
         if (err) {
           res.json('authentication fallid or error in token');
         } else {
-          // check('password', 'invalid input').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
-          // check('confirmPassword', 'invalid input').custom((value, { req }) => {
-          //   if (value !== req.body.password) {
-          //     throw new Error('Password confirmation does not match password');
-          //   }
-          //   return true;
-          // }),
+          const errors = validationResult(req);
+  console.log(errors);
+  if (errors.isEmpty()){
           bcrypt.hash(req.body.password, 8, async (err, hashPassword) => {
           await customersModel.findOneAndUpdate(
             { email: decodded.email },
@@ -33,7 +30,7 @@ module.exports.customerResetPassword = async (req, res) => {
           );
           
           res.json('Changed');
-        })
+        })}
         }
       }
     });
