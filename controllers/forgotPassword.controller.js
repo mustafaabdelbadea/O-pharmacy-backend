@@ -10,10 +10,9 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
     const customers = await customersModel.findOne({ email });
     //get date to make expired date for token
     const DateNow=Date.now();
-    const isUsed=false;
     if (customers) {
         //encode email and date 
-        jwt.sign({email,DateNow,isUsed},      //retrieve in token    
+        jwt.sign({email,DateNow},      //retrieve in token    
             "pharmjwt",
             async (err, token) => {
                 //send email to user 
@@ -58,10 +57,9 @@ module.exports.forgotPasswordPharmacy = async (req, res) => {
     const pharmacies = await pharmaciesModel.findOne({ email });
     //get date to make expired date for token
     const DateNow=Date.now();
-    const isUsed=false;
     if (pharmacies) {
         //encode email and date 
-        jwt.sign({email,DateNow,isUsed},      //retrieve in token    
+        jwt.sign({email,DateNow},      //retrieve in token    
             "pharmjwt",
             async (err, token) => {
                 //send email to user 

@@ -13,11 +13,10 @@ module.exports.customerForgotPassword = async (req, res) => {
   if (token && token != null && token != undefined) {
 //verify token 
     jwt.verify(req.params.token, "pharmjwt", async (err, decodded) => {
-      const isUsed=decodded.isUsed;
       //make an expairedate for token after 10 mins token will stop 
       ExpaireDate = decodded.DateNow + 600000
       //check if token expaired or not
-      if (Date.now() > ExpaireDate||isUsed==true) {
+      if (Date.now() > ExpaireDate) {
         res.json("time out or token has been used before");
       }
       else {
@@ -56,11 +55,10 @@ module.exports.pharmacyForgotPassword = async (req, res) => {
   if (token && token != null && token != undefined) {
 //verify token 
     jwt.verify(req.params.token, "pharmjwt", async (err, decodded) => {
-      const isUsed=decodded.isUsed;
       //make an expairedate for token after 10 mins token will stop 
       ExpaireDate = decodded.DateNow + 600000
       //check if token expaired or not
-      if (Date.now() > ExpaireDate||isUsed==true) {
+      if (Date.now() > ExpaireDate) {
         res.json("time out or token has been used before");
       }
       else {
