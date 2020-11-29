@@ -10,8 +10,8 @@ const  ourPharmacies  = require('../controllers/ourPharmacies.controller');
 const notfoundController=require('../controllers/notfound.controller');
 const phoneValidation=require('../controllers/phoneValidation.controller');
 const medicalhistoryController=require('../controllers/medicalhistory.controller');
-const resetPasswordController=require('../controllers/resetPassword.controller');
-const resetPasswordTokenController=require('../controllers/resetPasswordToken.controller');
+const forgotPasswordController=require('../controllers/forgotPassword.controller');
+const forgotPasswordTokenController=require('../controllers/forgotPasswordToken.controller');
 const forgotPasswordValidation=require('../controllers/forgotPasswordValidation.controller')
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
@@ -21,8 +21,8 @@ indexRouter.post('/pharmacySignup', validation.signupValidation, signupControlle
 indexRouter.post('/customerSignup', phoneValidation.phoneValidation,validation.signupValidation, signupController.customerSignup);
 indexRouter.get('/pharmacyVerifyEmail/:token', verifyEmail.pharmacyEmail);
 indexRouter.get('/customerVerifyEmail/:token', verifyEmail.customerEmail);
-indexRouter.post('/resetPasswordCustomer',resetPasswordController.resetPasswordCustomer)
-indexRouter.post('/customerResetPassword/:token',forgotPasswordValidation,resetPasswordTokenController.customerResetPassword)
+indexRouter.post('/forgotPasswordCustomer',forgotPasswordController.forgotPasswordCustomer)
+indexRouter.post('/customerForgotPassword/:token',forgotPasswordValidation,forgotPasswordTokenController.customerForgotPassword)
 indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medicalhistory );
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
 indexRouter.get('*',notfoundController.notfound )

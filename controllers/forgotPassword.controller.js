@@ -4,14 +4,18 @@ const { check, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
-module.exports.resetPasswordCustomer = async (req, res) => {
+module.exports.forgotPasswordCustomer = async (req, res) => {
+    //check if email exists or not
     const email = req.body.email;
     const customers = await customersModel.findOne({ email });
+    //get date to make expired date for token
     const DateNow=Date.now();
     if (customers) {
+        //encode email and date 
         jwt.sign({email,DateNow},      //retrieve in token    
             "pharmjwt",
             async (err, token) => {
+                //send email to user 
                 let transporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {
@@ -50,16 +54,4 @@ module.exports.resetPasswordCustomer = async (req, res) => {
 
 
 
-// module.exports.pharmacyEmail = async (req, res) => {
-//   jwt.verify(req.params.token, "pharmjwt", async (err, decodded) => {
-//     //console.log(decodded);
-//     await pharmaciesModel.findOneAndUpdate(
-//       { email: decodded },
-//       { isVerified: true }
-//     );
-
-//     res.redirect("/");
-//   });
-
-// };
 
