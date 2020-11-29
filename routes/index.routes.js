@@ -23,6 +23,8 @@ indexRouter.get('/pharmacyVerifyEmail/:token', verifyEmail.pharmacyEmail);
 indexRouter.get('/customerVerifyEmail/:token', verifyEmail.customerEmail);
 indexRouter.post('/forgotPasswordCustomer',forgotPasswordController.forgotPasswordCustomer)
 indexRouter.post('/customerForgotPassword/:token',forgotPasswordValidation,forgotPasswordTokenController.customerForgotPassword)
+indexRouter.post('/forgotPasswordPharmacy',forgotPasswordController.forgotPasswordPharmacy)
+indexRouter.post('/pharmacyForgotPassword/:token',forgotPasswordValidation,forgotPasswordTokenController.pharmacyForgotPassword)
 indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medicalhistory );
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
 indexRouter.get('*',notfoundController.notfound )
