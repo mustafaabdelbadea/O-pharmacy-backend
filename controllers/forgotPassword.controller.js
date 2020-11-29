@@ -19,8 +19,8 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
                 let transporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {
-                        user: "test@test.com", // generated ethereal user
-                        pass: "TEst@123", // generated ethereal password
+                        user: "OpharmacyTeam@gmail.com", // generated ethereal user
+                        pass: "OPharmacy@123", // generated ethereal password
                     },
                 });
                 let info = await transporter.sendMail({

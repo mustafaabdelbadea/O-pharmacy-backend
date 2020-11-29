@@ -47,8 +47,8 @@ module.exports.pharmacySignup = async (req, res) => {
               let transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
-                  user: "3bdallhmz99@gmail.com", // generated ethereal user
-                  pass: "", // generated ethereal password
+                  user: "OpharmacyTeam@gmail.com", // generated ethereal user
+                  pass: "OPharmacy@123", // generated ethereal password
                 },
               });
 
@@ -146,8 +146,8 @@ module.exports.customerSignup = async (req, res) => {
                 let transporter = nodemailer.createTransport({
                   service: "gmail",
                   auth: {
-                    user: "3bdallhmz99@gmail.com", // generated ethereal user
-                    pass: "", // generated ethereal password
+                    user: "OpharmacyTeam@gmail.com", // generated ethereal user
+                    pass: "OPharmacy@123", // generated ethereal password
                   },
                 });
 
