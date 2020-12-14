@@ -11,7 +11,7 @@ module.exports.edit_Pharmacy_name = async (req, res) => {
 
     jwt.verify(token, 'pharmjwt', async(err, decoded) => {
         if (err) {
-            res.json('error in token');
+            res.json({message : 'error in token' ,errors: err });
         }
         else {
            const id=decoded._id
