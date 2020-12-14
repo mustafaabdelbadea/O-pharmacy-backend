@@ -14,7 +14,7 @@ const forgotPasswordController=require('../controllers/forgotPassword.controller
 const forgotPasswordTokenController=require('../controllers/forgotPasswordToken.controller');
 const forgotPasswordValidation=require('../controllers/forgotPasswordValidation.controller');
 const editController=require('../controllers/editData.controler');
-
+const getNearestPharmacy=require('../controllers/getNearestPharmacy.controller')
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -31,7 +31,7 @@ indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medi
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
 indexRouter.post('/editPharmacyPass/:id',authMiddleware,validation.editPassValidation,editController.edit_Pharmacy_password);
 indexRouter.post('/editCustomerPass/:id',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
-
+indexRouter.get('/getNearestPharmacy',getNearestPharmacy.nearestPharmacy)
 indexRouter.get('*',notfoundController.notfound )
 //validation.signupValidation,
 
