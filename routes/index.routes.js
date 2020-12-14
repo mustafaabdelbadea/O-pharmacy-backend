@@ -31,7 +31,7 @@ indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medi
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
 indexRouter.post('/editPharmacyPass/:id',authMiddleware,validation.editPassValidation,editController.edit_Pharmacy_password);
 indexRouter.post('/editCustomerPass/:id',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
-indexRouter.get('/getNearestPharmacy',getNearestPharmacy.nearestPharmacy)
+indexRouter.get('/getNearestPharmacy',authMiddleware,getNearestPharmacy.nearestPharmacy)
 indexRouter.post('/editPharmacyPass',authMiddleware,validation.editPassValidation,editController.edit_Pharmacy_password);
 indexRouter.post('/editCustomerPass',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
 indexRouter.post('/editPharmacyName',authMiddleware,validation.editNameValidation,editController.edit_Pharmacy_name);
