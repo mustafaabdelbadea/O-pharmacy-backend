@@ -18,7 +18,7 @@ module.exports.editNameValidation=check('name', 'invalid input').matches(/[A-Z][
 
 module.exports.editPassValidation=[
  check('password','invalid input').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
-  check('confirmPassword','invalid input').custom((value, { req }) => {
+ check('confirmPassword','invalid input').custom((value, { req }) => {
       if (value !== req.body.password) {
         throw new Error('Password confirmation does not match password');
       }
