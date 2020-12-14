@@ -39,7 +39,10 @@ let customerSchema = mongoose.Schema({
             type: String,
             default: 'Point'
         },
-        coordinates: String
+        coordinates: {
+            lat:String,
+            lon:String
+        }
     },
 
     birthDate: {

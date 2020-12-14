@@ -41,7 +41,10 @@ let pharmacySchema = mongoose.Schema({
         {
             type: String, default: 'Point'
         },
-        coordinates: String
+        coordinates: {
+            lat:String,
+            lon:String
+        }
     },
     // locationAsCoordinates :{ type: [Number], index: { type: '2dsphere', sparse: true },
     rate: {
