@@ -111,7 +111,7 @@ module.exports.customerSignup = async (req, res) => {
         gander } = req.body
   
   
-  const errors = validationResult(req);
+  const errors = validationResult(req); //check input validation
   console.log(errors);
   if (errors.isEmpty()) {
     const customerEmail = await customersModel.findOne({ email });// search if email exist in data base

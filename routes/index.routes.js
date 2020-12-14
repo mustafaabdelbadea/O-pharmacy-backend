@@ -12,7 +12,9 @@ const phoneValidation=require('../controllers/phoneValidation.controller');
 const medicalhistoryController=require('../controllers/medicalhistory.controller');
 const forgotPasswordController=require('../controllers/forgotPassword.controller');
 const forgotPasswordTokenController=require('../controllers/forgotPasswordToken.controller');
-const forgotPasswordValidation=require('../controllers/forgotPasswordValidation.controller')
+const forgotPasswordValidation=require('../controllers/forgotPasswordValidation.controller');
+const editController=require('../controllers/editData.controler');
+
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -27,6 +29,9 @@ indexRouter.post('/forgotPasswordPharmacy',forgotPasswordController.forgotPasswo
 indexRouter.post('/pharmacyForgotPassword/:token',forgotPasswordValidation,forgotPasswordTokenController.pharmacyForgotPassword)
 indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medicalhistory );
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
+indexRouter.post('/editPharmacyPass/:id',authMiddleware,validation.editPassValidation,editController.edit_Pharmacy_password);
+indexRouter.post('/editCustomerPass/:id',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
+
 indexRouter.get('*',notfoundController.notfound )
 //validation.signupValidation,
 
