@@ -4,8 +4,6 @@ const { check, validationResult } = require("express-validator");
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
 
-
-
 module.exports.edit_Pharmacy_name = async (req, res) => {
     const token = req.header('token');
 
@@ -20,7 +18,7 @@ module.exports.edit_Pharmacy_name = async (req, res) => {
   
     const { name} = req.body; // assing data in request into variabls
     
-    const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in url
+    const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
  
         if(user){ // user is exist 
        
@@ -68,7 +66,7 @@ module.exports.edit_customer_name = async (req, res) => {
       
         const { name} = req.body; // assing data in request into variabls
         
-        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in url
+        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
            
@@ -116,7 +114,7 @@ module.exports.edit_Pharmacy_password = async (req, res) => {
   
     const {oldpassword, password ,confirmPassword} = req.body; // assing data in request into variabls
     
-    const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in url
+    const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
  
 if(user){ // user is exist 
    
@@ -171,7 +169,7 @@ module.exports.edit_customer_password = async (req, res) => {
       
             const {oldpassword, password ,confirmPassword} = req.body; // assing data in request into variabls
             
-            const user = await customersModel.find({_id:id}); //search for the pharmacy by id in url
+            const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
          
         if(user){ // user is exist 
            
@@ -227,7 +225,7 @@ module.exports.edit_Pharmacy_phones = async (req, res) => {
       
         const { phones} = req.body; // assing data in request into variabls
         
-        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in url
+        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
            
@@ -274,7 +272,7 @@ module.exports.add_Pharmacy_phones = async (req, res) => {
             const errors = validationResult(req); //check input validation
             const newPhones = req.body.phones;// assing data in request into variabls
             
-            const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in url
+            const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
          
                 if(user){ // user is exist 
 
@@ -326,7 +324,7 @@ module.exports.edit_customer_phone = async (req, res) => {
       
         const { phone} = req.body; // assing data in request into variabls
         
-        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in url
+        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
            
@@ -374,7 +372,7 @@ module.exports.edit_Pharmacy_address = async (req, res) => {
       
         const { address} = req.body; // assing data in request into variabls
         
-        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in url
+        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
            
@@ -422,7 +420,7 @@ module.exports.edit_customer_address = async (req, res) => {
       
         const { address} = req.body; // assing data in request into variabls
         
-        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in url
+        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
            
@@ -455,3 +453,100 @@ module.exports.edit_customer_address = async (req, res) => {
       
       
     };
+
+module.exports.edit_Pharmacy_logo = async (req, res) => {
+        const token = req.header('token');
+    
+        jwt.verify(token, 'pharmjwt', async(err, decoded) => {
+            if (err) {
+                res.json({message : 'error in token' ,errors: err });
+            }
+            else {
+               const id=decoded._id
+               
+        const errors = validationResult(req); //check input validation
+      
+        const { logo} = req.body; // assing data in request into variabls
+        
+        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
+     
+            if(user){ // user is exist 
+           
+                if (errors.isEmpty()) { //no validaion error
+                    
+                try{
+            
+                await pharmaciesModel.findOneAndUpdate({_id:id},{logo:logo}); //save new logo
+                    res.json({ message: "logo edited successfully"}); 
+                }
+    
+                catch (e) {// print error if it exist
+                        res.json(e)
+                    }
+    
+                }
+                else { //there is validaion error
+                    res.json({ message: errors.array()});
+                }
+      
+            }else //id is not found
+            {  
+                  res.json({ message: "Id is not exist"});
+            }
+        
+            }
+        })
+      
+      
+      
+      
+    };
+
+module.exports.edit_customer_photo = async (req, res) => {
+        const token = req.header('token');
+    
+        jwt.verify(token, 'pharmjwt', async(err, decoded) => {
+            if (err) {
+                res.json('error in token');
+            }
+            else {
+               const id=decoded._id
+               
+        const errors = validationResult(req); //check input validation
+      
+        const { photo} = req.body; // assing data in request into variabls
+        
+        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
+     
+            if(user){ // user is exist 
+           
+                if (errors.isEmpty()) { //no validaion error
+                    
+                try{
+            
+                await customersModel.findOneAndUpdate({_id:id},{photo:photo}); //save new photo
+                    res.json({ message: "photo edited successfully"}); 
+                }
+    
+                catch (e) {// print error if it exist
+                        res.json(e)
+                    }
+    
+                }
+                else { //there is validaion error
+                    res.json({ message: errors.array()});
+                }
+      
+            }else //id is not found
+            {  
+                  res.json({ message: "Id is not exist"});
+            }
+        
+            }
+        })
+      
+      
+      
+      
+    };
+     
