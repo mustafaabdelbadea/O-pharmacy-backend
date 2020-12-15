@@ -34,6 +34,10 @@ indexRouter.post('/editPharmacyPass',authMiddleware,validation.editPassValidatio
 indexRouter.post('/editCustomerPass',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
 indexRouter.post('/editPharmacyName',authMiddleware,validation.editNameValidation,editController.edit_Pharmacy_name);
 indexRouter.post('/editCustomerName',authMiddleware,validation.editNameValidation,editController.edit_customer_name);
+indexRouter.post('/editPharmacyPhones',authMiddleware,editController.edit_Pharmacy_phones);
+indexRouter.post('/addPharmacyPhones',authMiddleware,editController.add_Pharmacy_phones);
+indexRouter.post('/editCustomerPhone',authMiddleware,phoneValidation.phoneValidation,editController.edit_customer_phone);
+
 
 indexRouter.get('*',notfoundController.notfound )
 //validation.signupValidation,
