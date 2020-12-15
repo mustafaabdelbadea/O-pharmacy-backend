@@ -37,7 +37,8 @@ indexRouter.post('/editCustomerName',authMiddleware,validation.editNameValidatio
 indexRouter.post('/editPharmacyPhones',authMiddleware,editController.edit_Pharmacy_phones);
 indexRouter.post('/addPharmacyPhones',authMiddleware,editController.add_Pharmacy_phones);
 indexRouter.post('/editCustomerPhone',authMiddleware,phoneValidation.phoneValidation,editController.edit_customer_phone);
-
+indexRouter.post('/addPharmacyAddress',authMiddleware,editController.edit_Pharmacy_address);
+indexRouter.post('/editCustomerAddress',authMiddleware,editController.edit_customer_address);
 
 indexRouter.get('*',notfoundController.notfound )
 //validation.signupValidation,
