@@ -549,4 +549,103 @@ module.exports.edit_customer_photo = async (req, res) => {
       
       
     };
+
+module.exports.edit_Pharmacy_coordinates = async (req, res) => {
+        const token = req.header('token');
+    
+        jwt.verify(token, 'pharmjwt', async(err, decoded) => {
+            if (err) {
+                res.json({message : 'error in token' ,errors: err });
+            }
+            else {
+               const id=decoded._id
+               
+        const errors = validationResult(req); //check input validation
+      
+        const { lat , lon} = req.body; // assing data in request into variabls
+        let coordinates = { lat, lon}
+        let locationAsCoordinates= {coordinates}
+
+        const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
      
+            if(user){ // user is exist 
+           
+                if (errors.isEmpty()) { //no validaion error
+                    
+                try{
+            
+                await pharmaciesModel.findOneAndUpdate({_id:id},{locationAsCoordinates:locationAsCoordinates}); //save new Coordinates
+                    res.json({ message: "Coordinates edited successfully"}); 
+                }
+    
+                catch (e) {// print error if it exist
+                        res.json(e)
+                    }
+    
+                }
+                else { //there is validaion error
+                    res.json({ message: errors.array()});
+                }
+      
+            }else //id is not found
+            {  
+                  res.json({ message: "Id is not exist"});
+            }
+        
+            }
+        })
+      
+      
+      
+      
+    };
+
+module.exports.edit_customer_coordinates = async (req, res) => {
+        const token = req.header('token');
+    
+        jwt.verify(token, 'pharmjwt', async(err, decoded) => {
+            if (err) {
+                res.json('error in token');
+            }
+            else {
+               const id=decoded._id
+               
+        const errors = validationResult(req); //check input validation
+      
+        const { lat , lon} = req.body; // assing data in request into variabls
+        let coordinates = { lat, lon}
+        let locationAsCoordinates= {coordinates}
+        
+        const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
+     
+            if(user){ // user is exist 
+           
+                if (errors.isEmpty()) { //no validaion error
+                    
+                try{
+            
+                await customersModel.findOneAndUpdate({_id:id},{locationAsCoordinates:locationAsCoordinates}); //save new Coordinates
+                    res.json({ message: "Coordinates edited successfully"}); 
+                }
+    
+                catch (e) {// print error if it exist
+                        res.json(e)
+                    }
+    
+                }
+                else { //there is validaion error
+                    res.json({ message: errors.array()});
+                }
+      
+            }else //id is not found
+            {  
+                  res.json({ message: "Id is not exist"});
+            }
+        
+            }
+        })
+      
+      
+      
+      
+    };    
