@@ -116,44 +116,44 @@ module.exports.edit_Pharmacy_password = async (req, res) => {
     
     const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
  
-if(user){ // user is exist 
-   
-    const match = await bcrypt.compare(oldpassword , user[0].password); //check input validation
+    if(user){ // user is exist 
     
-        if (match) { //old pass is match
-            if (errors.isEmpty()) { //no validaion error
-                
-            try{
+        const match = await bcrypt.compare(oldpassword , user[0].password); //check input validation
         
-                const hashPassword = bcrypt.hashSync(password, 8); //make password hashed 
-                await pharmaciesModel.findOneAndUpdate({_id:id},{password:hashPassword}); //save new password
-                res.json({ message: "password edited successfully"}); 
-            }
-
-            catch (e) {// print error if it exist
-                    res.json(e)
+            if (match) { //old pass is match
+                if (errors.isEmpty()) { //no validaion error
+                    
+                try{
+            
+                    const hashPassword = bcrypt.hashSync(password, 8); //make password hashed 
+                    await pharmaciesModel.findOneAndUpdate({_id:id},{password:hashPassword}); //save new password
+                    res.json({ message: "password edited successfully"}); 
                 }
 
+                catch (e) {// print error if it exist
+                        res.json(e)
+                    }
+
+                }
+                else { //there is validaion error
+                    res.json({ message: errors.array()});
+                }
+    
+            }else //old password is not match
+            {  
+                res.json({ message: "old password is not match"});
             }
-            else { //there is validaion error
-                res.json({ message: errors.array()});
+        }else //Id is not exist
+        {
+            res.json({ message: "Id is not exist"});
+        }
             }
-  
-        }else //old password is not match
-        {  
-              res.json({ message: "old password is not match"});
-        }
-    }else //Id is not exist
-     {
-        res.json({ message: "Id is not exist"});
-     }
-        }
-    })
-  
-  
-  
-  
-    };
+        })
+    
+    
+    
+    
+        };
 
 module.exports.edit_customer_password = async (req, res) => {
 
