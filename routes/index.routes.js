@@ -29,7 +29,7 @@ indexRouter.post('/forgotPasswordPharmacy',forgotPasswordController.forgotPasswo
 indexRouter.post('/pharmacyForgotPassword/:token',forgotPasswordValidation,forgotPasswordTokenController.pharmacyForgotPassword)
 indexRouter.post('/medicalhistory',authMiddleware, medicalhistoryController.medicalhistory );
 indexRouter.get('/medicalhistoryRetrieve',authMiddleware, medicalhistoryController.retrieveData);
-indexRouter.get('/getNearestPharmacy',authMiddleware,getNearestPharmacy.nearestPharmacy)
+indexRouter.post('/getNearestPharmacy',authMiddleware,getNearestPharmacy.nearestPharmacy)
 indexRouter.post('/editPharmacyPass',authMiddleware,validation.editPassValidation,editController.edit_Pharmacy_password);
 indexRouter.post('/editCustomerPass',authMiddleware,validation.editPassValidation,editController.edit_customer_password);
 indexRouter.post('/editPharmacyName',authMiddleware,validation.editNameValidation,editController.edit_Pharmacy_name);
