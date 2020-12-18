@@ -1,9 +1,13 @@
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
+const jwt = require('jsonwebtoken');
+
 const Geo = require('geo-nearby');
 
 module.exports.nearestPharmacy = async (req, res) => {
     //get all pharmacies and ignore password
+    const token = req.header('token');
+
     try {
         let { orderByTexting, orderByPhoto } = req.body;
         //check if customer entered order or not
@@ -32,22 +36,33 @@ module.exports.nearestPharmacy = async (req, res) => {
             //format of data 
             const geo = new Geo(data, { setOptions: { id: 'name', lat: 'lat', lon: 'lon' } });
             //get customer by id 
-            const _id = req.body._id;
-            let customer = await customersModel.findOne({ _id });
-            //get lat and lon of customer and address
-
-            const customerLat = customer.locationAsCoordinates.coordinates.lat;
-            const customerLon = customer.locationAsCoordinates.coordinates.lon;
-            const cutsomerAddres = customer.locationAsAddress;
-            //check if cutomer has enered coordinates or not
-            if (customerLat && customerLat != undefined && customerLat != null && customerLon && customerLon != undefined && customerLon != null) {
-                console.log(cutsomerAddres)
-                console.log(geo.nearBy(customerLat, customerLon, 2000))
-
+        //get id from header
+        jwt.verify(token, 'pharmjwt', async(err, decoded) => {
+            if (err) {
+                res.json({message : 'error in token' ,errors: err });
             }
             else {
-                res.json({ msg: "enter your location on map" });
-            }
+               const _id=decoded._id;
+            
+               let customer = await customersModel.findOne({ _id });
+               //get lat and lon of customer and address
+   
+               const customerLat = customer.locationAsCoordinates.coordinates.lat;
+               const customerLon = customer.locationAsCoordinates.coordinates.lon;
+               const cutsomerAddres = customer.locationAsAddress;
+               //check if cutomer has enered coordinates or not
+               if (customerLat && customerLat != undefined && customerLat != null && customerLon && customerLon != undefined && customerLon != null) {
+                   console.log(cutsomerAddres)
+                   console.log(geo.nearBy(customerLat, customerLon, 2000))
+   
+               }
+               else {
+                   res.json({ msg: "enter your location on map" });
+               }
+        }
+             
+            })
+          
             //get all pharmacies in 2 kilos
 
         }
