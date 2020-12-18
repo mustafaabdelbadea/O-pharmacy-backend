@@ -6,6 +6,7 @@ module.exports.nearestPharmacy = async (req, res) => {
 //get all pharmacies and ignore password
     try {
       let {orderByTexting,orderByPhoto}=req.body;
+      //check if customer entered order or not
       if(orderByPhoto||orderByTexting){
         let pharmacies = await pharmaciesModel.find({}).select("-password")
         console.log(orderByPhoto,orderByTexting)
@@ -33,11 +34,22 @@ module.exports.nearestPharmacy = async (req, res) => {
         //get customer by id 
         const _id = req.body._id ;
         let customer=await customersModel.findOne({_id});
-        //get lat and lon of customer 
+        //get lat and lon of customer and address
+      
          const customerLat=customer.locationAsCoordinates.coordinates.lat;
          const customerLon=customer.locationAsCoordinates.coordinates.lon;
+         const cutsomerAddres=customer.locationAsAddress;
+//check if cutomer has enered coordinates or not
+         if(customerLat&&customerLat !=undefined&&customerLat !=null&& customerLon &&customerLon !=undefined&&customerLon !=null)
+         {
+             console.log(cutsomerAddres)
+            console.log(geo.nearBy(customerLat,customerLon, 2000))
+
+         }
+         else{
+              res.json({msg:"enter your location on map"});
+         }
     //get all pharmacies in 2 kilos
-         console.log(geo.nearBy(customerLat,customerLon, 2000))
         
       }
       else{
