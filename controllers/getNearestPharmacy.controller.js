@@ -86,7 +86,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                             }) //take order
                         }
                         else if (orderByPhoto) {
-                            ordersModel({
+                            order = new ordersModel({
                                 date: Date(),
                                 orderByPhoto,
                                 customerID: _id,
