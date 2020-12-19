@@ -57,15 +57,15 @@ module.exports.nearestPharmacy = async (req, res) => {
                         console.log(geo.nearBy(customerLat, customerLon, 2000))
 
                         nearPharmacies = geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
-
+                        console.log(nearPharmacies);
                         pharmaciesIdStatus = []//array of object for near Pharmacy id and order status for it
-                        for (pharmacy = 0; pharmacy < nearPharmacies; pharmacy++) {
+                        for (pharmacy = 0; pharmacy < nearPharmacies.length; pharmacy++) {
                             pharmaciesIdStatus.push({
-                                id: nearPharmacies[pharmacy],
+                                id: nearPharmacies[pharmacy].i,
                                 status: "active"
                             })
                         }
-
+                        console.log(pharmaciesIdStatus);
                         let order;
 
                         if (orderByTexting && orderByPhoto) {
@@ -94,7 +94,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                             }) //take order
                         }
 
-
+                        console.log(order);
                         try {
                             await order.save(); //save order in database
                             res.json({message:"order saved"});
