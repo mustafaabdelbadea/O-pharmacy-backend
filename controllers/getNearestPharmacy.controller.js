@@ -58,7 +58,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                    
                    nearPharmacies=geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
                    
-                   pharmaciesIdStatus=[]
+                   pharmaciesIdStatus=[]//array of object for near Pharmacy id and order status for it
                    for( pharmacy=0; pharmacy<nearPharmacies; pharmacy++)
                    {
                     pharmaciesIdStatus.push({
