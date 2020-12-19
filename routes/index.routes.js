@@ -43,7 +43,7 @@ indexRouter.post('/editCustomerAddress',authMiddleware,editController.edit_custo
 indexRouter.post('/editPharmacyCoordinates',authMiddleware,editController.edit_Pharmacy_coordinates);
 indexRouter.post('/editCustomerCoordinates',authMiddleware,editController.edit_customer_coordinates);
 indexRouter.post('/pharmacyAgree',authMiddleware,pharmacyAgreeOrder.pharmacyAgreeOrder);
-indexRouter.get('/pharmacyNotAgree',pharmacyAgreeOrder.pharmacyNotAgree);
+indexRouter.get('/pharmacyNotAgree',authMiddleware,pharmacyAgreeOrder.pharmacyNotAgree);
 indexRouter.get('*',notfoundController.notfound );
 //validation.signupValidation,
 
