@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 
 
 let ordersSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
-
+  
     date: {
         type: Date, 
         
@@ -46,7 +45,11 @@ let ordersSchema = mongoose.Schema({
         required: false 
     }, //customer Address
 
-   
+   globalStatus:{
+       type:String,
+        default:"notAccepted",
+        required: true
+   },
 
     customerID: { type: mongoose.Schema.Types.ObjectId, ref: "customer",required:true },//relation between customer and orders
 
