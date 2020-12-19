@@ -6,7 +6,7 @@ let ordersSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 
     date: {
-        type: date, 
+        type: Date, 
         
         required: true
      },
