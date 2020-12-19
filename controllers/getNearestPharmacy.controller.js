@@ -97,6 +97,7 @@ module.exports.nearestPharmacy = async (req, res) => {
 
                         try {
                             await order.save(); //save order in database
+                            res.json({message:"order saved"});
                         } catch (error) {
                             res.json(error) //send error if it occur during saving in database
                         }
