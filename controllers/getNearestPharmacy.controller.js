@@ -1,5 +1,6 @@
 const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
+const ordersModel = require("../models/orders.model");
 const jwt = require('jsonwebtoken');
 
 const Geo = require('geo-nearby');
@@ -54,6 +55,33 @@ module.exports.nearestPharmacy = async (req, res) => {
                if (customerLat && customerLat != undefined && customerLat != null && customerLon && customerLon != undefined && customerLon != null) {
                    console.log(cutsomerAddres)
                    console.log(geo.nearBy(customerLat, customerLon, 2000))
+                   
+                   nearPharmacies=geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
+                   
+                   pharmaciesIdStatus=[]
+                   for( pharmacy=0; pharmacy<nearPharmacies; pharmacy++)
+                   {
+                    pharmaciesIdStatus.push({
+                        id: nearPharmacies[pharmacy],
+                        status:"active"
+                    })
+                   }
+
+                    let order = new ordersModel({
+                    date : Date(),
+                    orderByTexting,
+                    orderByPhoto,
+                    customerID:_id,
+                    pharmaciesID:pharmaciesIdStatus
+                    }) //take order
+
+                    try {
+                        await order.save(); //save order in database
+                    } catch (error) {
+                        res.json(error) //send error if it occur during saving in database
+                    }
+
+                   
    
                }
                else {

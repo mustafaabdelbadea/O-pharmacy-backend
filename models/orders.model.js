@@ -50,7 +50,10 @@ let ordersSchema = mongoose.Schema({
 
     customerID: { type: mongoose.Schema.Types.ObjectId, ref: "customer",required:true },//relation between customer and orders
 
-    pharmaciesID: { type: mongoose.Schema.Types.ObjectId, ref: "pharmacies",required:true }//relation between pharmacies and orders
+    pharmaciesID:[ { 
+       id:{ type: mongoose.Schema.Types.ObjectId, ref: "pharmacies",required:true},
+       status:{type: String , required: true ,default: "active"}
+     } ] //relation between pharmacies and orders
 })
 
 
