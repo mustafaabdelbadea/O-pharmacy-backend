@@ -66,14 +66,34 @@ module.exports.nearestPharmacy = async (req, res) => {
                         status:"active"
                     })
                    }
+                   
+                   let order;
 
-                    let order = new ordersModel({
+                  if(orderByTexting&&orderByPhoto){
+                    order= new ordersModel({
                     date : Date(),
                     orderByTexting,
                     orderByPhoto,
                     customerID:_id,
                     pharmaciesID:pharmaciesIdStatus
                     }) //take order
+                }
+                  else if(orderByTexting){
+                    order = new ordersModel({
+                        date : Date(),
+                        orderByTexting,
+                        customerID:_id,
+                        pharmaciesID:pharmaciesIdStatus
+                        }) //take order
+                   }
+                   else if(orderByPhoto){ordersModel({
+                    date : Date(),
+                    orderByPhoto,
+                    customerID:_id,
+                    pharmaciesID:pharmaciesIdStatus
+                    }) //take order
+                }
+                    
 
                     try {
                         await order.save(); //save order in database
