@@ -9,6 +9,9 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
         const pharmacyId = decoded._id;
         console.log(pharmacyId);
         try {
+            //const orderId0=req.body._id
+            //notAgreedOrders = await ordersModel.find({ globalStatus: "notAccepted", _id:orderId0})
+
             //get all not accepted orders 
             notAgreedOrders = await ordersModel.find({ globalStatus: "notAccepted" })
             //loop to all order and all pharmacies id
