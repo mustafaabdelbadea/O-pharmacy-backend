@@ -16,35 +16,35 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
             notAgreedOrders = await ordersModel.find({ globalStatus: "notAccepted" })
             //loop to all order and all pharmacies id
             console.log(notAgreedOrders)
-            if(notAgreedOrders.length!=0){
-            for (let i = 0; i < notAgreedOrders.length; i++) {
-                for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
-                    //search if pharmacy id in orders to get this order 
-                    if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId&&notAgreedOrders[i].pharmaciesID[j].status=="active") {
-                        const orderId = notAgreedOrders[i]._id;
-                        const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j].id;
-                        console.log(orderId)
-                        try {
-                            //change the global status that mean there is a pharmacy take the order and delete other pharmacies and set just one pharmacy
-                            await ordersModel.findOneAndUpdate({ _id: orderId }, {
-                                globalStatus: "accepted", pharmaciesID: [{
-                                    status: 'activated',
-                                    id: selectedPharmacy
-                                }]
-                            });
-                             res.json({msg:"order Accepted"});
-                        } catch (error) {
-                            res.json(error);
-                        }
+            if (notAgreedOrders.length != 0) {
+                for (let i = 0; i < notAgreedOrders.length; i++) {
+                    for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
+                        //search if pharmacy id in orders to get this order 
+                        if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId && notAgreedOrders[i].pharmaciesID[j].status == "active") {
+                            const orderId = notAgreedOrders[i]._id;
+                            const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j].id;
+                            console.log(orderId)
+                            try {
+                                //change the global status that mean there is a pharmacy take the order and delete other pharmacies and set just one pharmacy
+                                await ordersModel.findOneAndUpdate({ _id: orderId }, {
+                                    globalStatus: "accepted", pharmaciesID: [{
+                                        status: 'activated',
+                                        id: selectedPharmacy
+                                    }]
+                                });
+                                res.json({ msg: "order Accepted" });
+                            } catch (error) {
+                                res.json(error);
+                            }
 
+                        }
                     }
                 }
             }
-        }
-        else{
-            res.json({ msg: "no orders found" });
+            else {
+                res.json({ msg: "no orders found" });
 
-        }
+            }
         } catch (error) {
             console.log(error)
         }
@@ -68,54 +68,52 @@ module.exports.pharmacyNotAgree = (req, res) => {
             notAgreedOrders = await ordersModel.find({ globalStatus: "notAccepted" })
             //loop to all order and all pharmacies id
             console.log(notAgreedOrders)
-            if(notAgreedOrders.length!=0){
+            if (notAgreedOrders.length != 0) {
                 console.log('ssa')
-            for (let i = 0; i < notAgreedOrders.length; i++) {
-                for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
-                    //search if pharmacy id in orders to get this order 
-                    if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId&&notAgreedOrders[i].pharmaciesID[j].status=="active") {
-                        console.log(notAgreedOrders[i].pharmaciesID[j].status)
-                        const orderId = notAgreedOrders[i]._id;
+                for (let i = 0; i < notAgreedOrders.length; i++) {
+                    for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
+                        //search if pharmacy id in orders to get this order 
+                        if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId && notAgreedOrders[i].pharmaciesID[j].status == "active") {
+                            console.log(notAgreedOrders[i].pharmaciesID[j].status)
+                            const orderId = notAgreedOrders[i]._id;
+                            const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j]._id;
+                            // console.log(orderId);
+                            //console.log(selectedPharmacy);
+                            //  console.log(notAgreedOrders[i].pharmaciesID[j]);
+                            //    console.log(notAgreedOrders);
+                            try {
+                                //const allOrders=[]
+                                //change the global status that mean there is a pharmacy take the order and delete other pharmacies and set just one pharmacy
+                                // console.log(j)
+                                //  await ordersModel.findOneAndUpdate({pharmaciesID._id},{status:'notActive'})
+                                notAgreedOrders[i].pharmaciesID[j].status = 'notActive';
+                                await ordersModel.findOneAndUpdate({ _id: orderId },
+                                    {
+                                        //replace the old data and put a new data with update
+                                        "$set": notAgreedOrders[i]
+                                    }
 
-                        const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j]._id;
-                        console.log(orderId);
-                        console.log(selectedPharmacy);
-                        
-                        try {
-                            //change the global status that mean there is a pharmacy take the order and delete other pharmacies and set just one pharmacy
-                            console.log(j)
-                            //await ordersModel.findOneAndUpdate({pharmaciesID._id},{status:'notActive'})
-                            // await ordersModel.findOneAndUpdate({ _id: orderId },
-                            //     {
-                            //         "$set":
-                            //         {
-                            //             'pharmaciesID.0.content': {status:'notActive'}
-                            //     }
 
+                                    //     // : [{
+                                    //     //     status: 'active',
+                                    //     //     id: selectedPharmacy
+                                    //     // }]
+                                );
+                                res.json({ msg: 'updated' });
+                            } catch (error) {
+                                console.log(error);
+                                res.json(error);
+                            }
 
-                            // }
-                            
-                                
-                            //     // : [{
-                            //     //     status: 'active',
-                            //     //     id: selectedPharmacy
-                            //     // }]
-                            // );
-                            console.log("updated")
-                        } catch (error) {
-                            console.log(error);
-                            res.json(error);
                         }
-
                     }
+
                 }
+            }
+            else {
+                res.json({ msg: "no orders found" });
 
             }
-        }
-        else{
-            res.json({ msg: "no orders found" });
-
-        }
         } catch (error) {
             console.log(error)
         }
