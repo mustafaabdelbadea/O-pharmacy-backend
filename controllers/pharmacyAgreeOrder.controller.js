@@ -6,8 +6,23 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         let notAgreedOrders = [];
+    //    //get pharmacy id from header
         const pharmacyId = decoded._id;
-        console.log(pharmacyId);
+    //     //get oder id from body
+    //     const order_id=req.body.order_id;
+        
+    //     try {
+    //         await ordersModel.findOneAndUpdate({ _id:order_id,globalStatus: "notAccepted" }, {
+    //                                         globalStatus: "accepted", pharmaciesID: [{
+    //                                             status: 'activated',
+    //                                             id: pharmacyId
+    //                                         }]
+    //                                     });
+    //                                     res.json({ msg: "order Accepted" });
+    //     } catch (error) {
+    // res.json(error);
+  
+    //     }
         try {
             //const orderId0=req.body._id
             //notAgreedOrders = await ordersModel.find({ globalStatus: "notAccepted", _id:orderId0})
@@ -19,12 +34,20 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
             if (notAgreedOrders.length != 0) {
                 for (let i = 0; i < notAgreedOrders.length; i++) {
                     for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
+                      let orderId;
+                        try {
+                             orderId=req.body.order_id;
+                        } catch (error) {
+                             res.json(error);
+                        }
                         //search if pharmacy id in orders to get this order 
                         if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId && notAgreedOrders[i].pharmaciesID[j].status == "active") {
-                            const orderId = notAgreedOrders[i]._id;
+                            // const orderId = notAgreedOrders[i]._id;
+                           
                             const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j].id;
-                            console.log(orderId)
+                            
                             try {
+                                
                                 //change the global status that mean there is a pharmacy take the order and delete other pharmacies and set just one pharmacy
                                 await ordersModel.findOneAndUpdate({ _id: orderId }, {
                                     globalStatus: "accepted", pharmaciesID: [{
