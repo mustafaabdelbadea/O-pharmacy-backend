@@ -15,17 +15,15 @@ module.exports.pharmacyGetOrders = (req, res) => {
                     for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
                         //search if pharmacy id in orders to get this order 
                         if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId && notAgreedOrders[i].pharmaciesID[j].status == "active") {
-                          //get the cutomer id to get his data
-                            const customerID=notAgreedOrders[i].customerID;
-                           try {
-                               //get cutomer data
-                               const customerData=await customersModel.findById({_id:customerID}).select("name phone locationAsAddress locationAsCoordinates");
-                            res.json( {order:notAgreedOrders[i],cutomerData:customerData});
-                           } catch (error) {
+                            //get the cutomer id to get his data
+                            const customerID = notAgreedOrders[i].customerID;
+                            try {
+                                //get cutomer data
+                                const customerData = await customersModel.findById({ _id: customerID }).select("name phone locationAsAddress locationAsCoordinates");
+                                res.json({ order: notAgreedOrders[i], cutomerData: customerData });
+                            } catch (error) {
                                 res.json(error);
-                           }
-                        
-
+                            }
                         }
                     }
                 }
