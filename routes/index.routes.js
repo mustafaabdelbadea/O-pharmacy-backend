@@ -16,6 +16,7 @@ const forgotPasswordValidation=require('../controllers/forgotPasswordValidation.
 const editController=require('../controllers/editData.controler');
 const getNearestPharmacy=require('../controllers/getNearestPharmacy.controller');
 const pharmacyAgreeOrder=require('../controllers/pharmacyAgreeOrder.controller');
+const orderHistory=require('../controllers/orderHistory.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -44,6 +45,8 @@ indexRouter.post('/editPharmacyCoordinates',authMiddleware,editController.edit_P
 indexRouter.post('/editCustomerCoordinates',authMiddleware,editController.edit_customer_coordinates);
 indexRouter.post('/pharmacyAgree',authMiddleware,pharmacyAgreeOrder.pharmacyAgreeOrder);
 indexRouter.get('/pharmacyNotAgree',authMiddleware,pharmacyAgreeOrder.pharmacyNotAgree);
+indexRouter.get('/customerOrderHistory',authMiddleware,orderHistory.customerOrderHistory);
+indexRouter.get('/pharmacyOrderHistory',authMiddleware,orderHistory.pharmacyOrderHistory);
 indexRouter.get('*',notfoundController.notfound );
 //validation.signupValidation,
 
