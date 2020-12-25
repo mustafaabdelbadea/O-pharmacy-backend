@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 
 let medicalhistorySchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+   
 
     doYouHaveDiabates: { type: Boolean, required: false },
 

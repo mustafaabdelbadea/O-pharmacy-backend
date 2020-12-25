@@ -1,27 +1,35 @@
 const medicalhistory = require('../models/medicalhistory.model');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 module.exports.medicalhistory = async (req, res) => {
-  const { doYouHaveDiabates, highBloodPreasure, highCholesterol,
-    doYouSmoke, doYouVape, doYouDrinkAlcohol,
-    doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-    bloodType, doYouHaveOtherHealthCondition, atientConcerns } = req.body;
+  const token = req.header('token');
 
-  const form = new medicalhistory({
-
-    _id: mongoose.Types.ObjectId(),
-    doYouHaveDiabates, highBloodPreasure, highCholesterol,
-    doYouSmoke, doYouVape, doYouDrinkAlcohol,
-    doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-    bloodType, doYouHaveOtherHealthCondition, atientConcerns,
-    customerID: req.body.customerID
+  jwt.verify(token, 'pharmjwt', async (err, decoded) => {
+    const _id = decoded._id;
+    const { doYouHaveDiabates, highBloodPreasure, highCholesterol,
+      doYouSmoke, doYouVape, doYouDrinkAlcohol,
+      doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
+      bloodType, doYouHaveOtherHealthCondition, atientConcerns } = req.body;
+  
+    const form = new medicalhistory({
+  
+      doYouHaveDiabates, highBloodPreasure, highCholesterol,
+      doYouSmoke, doYouVape, doYouDrinkAlcohol,
+      doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
+      bloodType, doYouHaveOtherHealthCondition, atientConcerns,
+      customerID: _id
+    });
+  try {
+    console.log(_id)
+    await form.save();
+    res.json('success');
+  
+  } catch (error) {
+    res.json(error)
+  }
   });
-try {
-  await form.save();
-  res.json('success');
-
-} catch (error) {
-  res.json(error)
-}
+ 
 };
 
 // let _id = req.body.cusm;
@@ -38,15 +46,24 @@ try {
 //  }
 
 module.exports.retrieveData=async(req,res)=>{
-  const customerID = req.body.customerID ;
-  try {
-        
-    const history = await medicalhistory.find({customerID})
-    
-    res.json(history)
+  const token = req.header('token');
 
-  } catch (error) 
-  {
-    res.json(error);
-  }
+  jwt.verify(token, 'pharmjwt', async (err, decoded) => {
+    const _id = decoded._id;
+    const customerID = _id ;
+    try {
+          
+      const history = await medicalhistory.find({customerID})
+      
+      res.json(history)
+  
+    } catch (error) 
+    {
+      res.json(error);
+    }
+  })
+
+
+
+  
 }
