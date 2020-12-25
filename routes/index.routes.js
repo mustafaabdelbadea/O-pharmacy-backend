@@ -1,10 +1,10 @@
 const indexRouter = require('express').Router();
 const signinController = require('../controllers/signin.controller');
-const verifyToken = require('../middlewares/auth');
+const verifyToken = require('../guards/auth.guard');
 const signupController = require('../controllers/signup.controller');
 const verifyEmail = require('../controllers/verifyEmail.controller');
 const validation = require('../controllers/validation.controller');
-const authMiddleware = require('../middlewares/auth');
+const authMiddleware = require('../guards/auth.guard');
 const signinVaildation = require('../controllers/signinValidation');
 const  ourPharmacies  = require('../controllers/ourPharmacies.controller');
 const notfoundController=require('../controllers/notfound.controller');
