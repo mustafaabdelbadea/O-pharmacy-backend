@@ -6,28 +6,45 @@ module.exports.medicalhistory = async (req, res) => {
   const token = req.header('token');
 
   jwt.verify(token, 'pharmjwt', async (err, decoded) => {
+    
     const _id = decoded._id;
     const { doYouHaveDiabates, highBloodPreasure, highCholesterol,
       doYouSmoke, doYouVape, doYouDrinkAlcohol,
       doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
       bloodType, doYouHaveOtherHealthCondition, atientConcerns } = req.body;
   
-    const form = new medicalhistory({
+    const checkMedical=await medicalhistory.findOne({customerID:_id});
+   
+    if (checkMedical) {
+      try {
+        medicalhistory.findOneAndUpdate({customerID:_id},{doYouHaveDiabates, highBloodPreasure, highCholesterol,
+          doYouSmoke, doYouVape, doYouDrinkAlcohol,
+          doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
+          bloodType, doYouHaveOtherHealthCondition, atientConcerns});
+           res.json("updated");
+      } catch (error) {
+         res.json(error);
+      }
+    } else {
+      const form = new medicalhistory({
   
-      doYouHaveDiabates, highBloodPreasure, highCholesterol,
-      doYouSmoke, doYouVape, doYouDrinkAlcohol,
-      doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-      bloodType, doYouHaveOtherHealthCondition, atientConcerns,
-      customerID: _id
-    });
-  try {
-    console.log(_id)
-    await form.save();
-    res.json('success');
-  
-  } catch (error) {
-    res.json(error)
-  }
+        doYouHaveDiabates, highBloodPreasure, highCholesterol,
+        doYouSmoke, doYouVape, doYouDrinkAlcohol,
+        doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
+        bloodType, doYouHaveOtherHealthCondition, atientConcerns,
+        customerID: _id
+      });
+    try {
+      console.log(_id)
+      await form.save();
+      res.json('success');
+    
+    } catch (error) {
+      res.json(error)
+    }
+    }
+
+   
   });
  
 };
