@@ -44,7 +44,11 @@ let ordersSchema = mongoose.Schema({
         
         required: false 
     }, //customer Address
-
+    rate:{
+        type:Number,
+        required:true,
+        default:null
+    },
    globalStatus:{
        type:String,
         default:"notAccepted",

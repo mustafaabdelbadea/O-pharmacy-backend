@@ -9,7 +9,7 @@ module.exports.customerOrderHistory = (req, res) =>
         const customerId = decoded._id;//take customer id from header token 
         try {
          let customerOrders=[];
-         customerOrders = await ordersModel.find({customerID :customerId, globalStatus: "Accepted" })  
+         customerOrders = await ordersModel.find({customerID :customerId, globalStatus: "accepted" })  
          //find all accepted order that has same loged in customer
         
          if (customerOrders.length == 0) {
@@ -34,7 +34,7 @@ module.exports.pharmacyOrderHistory = (req, res) =>
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 
         try {
-            orders = await ordersModel.find({ globalStatus: "Accepted" })//find all accepted order
+            orders = await ordersModel.find({ globalStatus: "accepted" })//find all accepted order
             let pharmacyOrders=[];
            
             for( i=0; i<orders.length; i++){
