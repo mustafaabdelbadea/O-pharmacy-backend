@@ -4,7 +4,8 @@ const ordersModel = require('../models/orders.model');
 
 module.exports.cancelOrder = async (req, res) => {
 
-    orderId = req.params.orderId; //assign the spcific order id to variable
+   // orderId = req.params.orderId; //assign the spcific order id to variable
+    orderId = req.body.orderId;
     try {
         Order = await ordersModel.findOne({_id:orderId})// search for this order in database
         //console.log(Order);  res.json(Order)
@@ -36,6 +37,10 @@ module.exports.cancelOrder = async (req, res) => {
           else if (Order.globalStatus == "canceled") //if order was recanty canceled
           {  
             res.json({msg:" order already canceled"})   
+          }
+          else if (Order.globalStatus == "done") //if order was recanty canceled
+          {  
+            res.json({msg:"this order done you can't cancel it"})   
           }
         }
         else{ 

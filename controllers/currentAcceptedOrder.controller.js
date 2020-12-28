@@ -1,7 +1,7 @@
 const ordersModel = require('../models/orders.model');
 const jwt = require('jsonwebtoken');
 
-module.exports.customerOrderHistory = (req, res) => 
+module.exports.customerCurrentOrders = (req, res) => 
 {
     const token = req.header('token');
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
@@ -9,10 +9,7 @@ module.exports.customerOrderHistory = (req, res) =>
         const customerId = decoded._id;//take customer id from header token 
         try {
          let customerOrders=[];
-         customerOrders = await ordersModel.find({customerID :customerId, $or: [
-            { globalStatus: "done" },
-            { globalStatus: "canceled" }
-          ] })  
+         customerOrders = await ordersModel.find({customerID :customerId,globalStatus: "Accepted"})  
          //find all accepted order that has same loged in customer
         
          if (customerOrders.length == 0) {
@@ -30,18 +27,14 @@ module.exports.customerOrderHistory = (req, res) =>
 
 }
 
-module.exports.pharmacyOrderHistory = (req, res) => 
+module.exports.pharmacyCurrentOrders = (req, res) => 
 {
     const token = req.header('token');
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 
         try {
-            orders = await ordersModel.find({ $or: [
-                { globalStatus: "done" },
-                { globalStatus: "canceled" }
-              ] })//find all order 
-              
+            orders = await ordersModel.find({ globalStatus: "Accepted" })//find all accepted order
             let pharmacyOrders=[];
            
             for( i=0; i<orders.length; i++){

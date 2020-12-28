@@ -20,6 +20,8 @@ const orderHistory=require('../controllers/orderHistory.controller');
 const getOrders=require('../controllers/getOrders.controller');
 const rate=require('../controllers/rate.controller');
 const cancel=require('../controllers/cancel.controller');
+const done=require('../controllers/doneOrder.controller');
+const currentOrders=require('../controllers/currentAcceptedOrder.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -50,11 +52,16 @@ indexRouter.post('/pharmacyAgree',authMiddleware,pharmacyAgreeOrder.pharmacyAgre
 indexRouter.get('/pharmacyNotAgree',authMiddleware,pharmacyAgreeOrder.pharmacyNotAgree);
 indexRouter.get('/customerOrderHistory',authMiddleware,orderHistory.customerOrderHistory);
 indexRouter.get('/pharmacyOrderHistory',authMiddleware,orderHistory.pharmacyOrderHistory);
+indexRouter.get('/customerCurrentOrders',authMiddleware,currentOrders.customerCurrentOrders);
+indexRouter.get('/pharmacyCurrentOrders',authMiddleware,currentOrders.pharmacyCurrentOrders);
 indexRouter.post('/rate',authMiddleware,rate.rate);
-indexRouter.get('/cancel/:orderId',cancel.cancelOrder);
+//indexRouter.get('/cancel/:orderId',authMiddleware,cancel.cancelOrder);
+//indexRouter.get('/doneorder/:orderId',authMiddleware,done.doneOrder);
+indexRouter.get('/cancel',authMiddleware,cancel.cancelOrder);
+indexRouter.get('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);
 indexRouter.get('*',notfoundController.notfound );
-//validation.signupValidation,
+
 
 
 module.exports = indexRouter;
