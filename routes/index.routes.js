@@ -22,6 +22,7 @@ const rate=require('../controllers/rate.controller');
 const cancel=require('../controllers/cancel.controller');
 const done=require('../controllers/doneOrder.controller');
 const currentOrders=require('../controllers/currentAcceptedOrder.controller');
+const customerCurrent=require('../controllers/customerCurrentOrder.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -57,6 +58,7 @@ indexRouter.get('/pharmacyCurrentOrders',authMiddleware,currentOrders.pharmacyCu
 indexRouter.post('/rate',authMiddleware,rate.rate);
 //indexRouter.get('/cancel/:orderId',authMiddleware,cancel.cancelOrder);
 //indexRouter.get('/doneorder/:orderId',authMiddleware,done.doneOrder);
+indexRouter.get('/customerCurrent',authMiddleware,customerCurrent.customerCurrent);
 indexRouter.get('/cancel',authMiddleware,cancel.cancelOrder);
 indexRouter.get('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);

@@ -8,7 +8,7 @@ module.exports.doneOrder = async (req, res) =>
     try {
         Order = await ordersModel.findOne({_id:orderId});// search for this order in database
         if (Order) {  //order is found
-            if (Order.globalStatus == "Accepted")  //if order accepted 
+            if (Order.globalStatus == "accepted")  //if order accepted 
             {
                 try
                 {
