@@ -35,14 +35,15 @@ module.exports.pharmacySignin = async (req, res) => {
                     "pharmjwt",
                     //send token in header
                     (err, token) => {
-                        res.header('token', token).json(
-                            {
-                                name: pharmacies.name
-                            }
-                        )
+                        // res.header('token', token).json(
+                        //     {
+                        //         name: pharmacies.name
+                        //     }
+                        // )
+                        res.json({message:'success',token:token});
                     }
                 )
-                 res.json({message:"success"});
+               //  res.json({message:"success"});
             }
             else {
                 res.json({ msg: "Invalid email or password" });
@@ -93,18 +94,19 @@ module.exports.customerSignin = async (req, res) => {
                         "pharmjwt",
                         //send token in header
                         (err, token) => {
-                            res.header('token', token).json(
-                                {
-                                    name: customers.name
-                                }
-                            )
+                            // res.header('token', token).json(
+                            //     {
+                            //         name: customers.name
+                            //     }
+                            // )
+                             res.json({message:'success',token:token});
                         }
                     )
                 }
                 catch (error) {
                     console.log(error)
                 }
-                 res.json({message:"success"});
+               //  res.json({message:"success",Test:'test'});
             }
             else {
                 res.json({ msg: "Invalid email or password" });
