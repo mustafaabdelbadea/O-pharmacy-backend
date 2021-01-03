@@ -42,7 +42,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         )
                     }
                 )
-                // res.json({msg:"success"});
+                 res.json({message:"success"});
             }
             else {
                 res.json({ msg: "Invalid email or password" });
@@ -104,7 +104,7 @@ module.exports.customerSignin = async (req, res) => {
                 catch (error) {
                     console.log(error)
                 }
-                // res.json({msg:"success"});
+                 res.json({message:"success"});
             }
             else {
                 res.json({ msg: "Invalid email or password" });
