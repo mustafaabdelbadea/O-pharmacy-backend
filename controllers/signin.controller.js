@@ -111,11 +111,11 @@ module.exports.customerSignin = async (req, res) => {
                //  res.json({message:"success",Test:'test'});
             }
             else {
-                res.json({ msg: "Invalid email or password" });
+                res.json({ message: "Invalid email or password" });
             }
         }
         else {
-            res.json({ msg: "Invalid email or password" });
+            res.json({ message: "Invalid email or password" });
         }
     }
     else {
