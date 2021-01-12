@@ -12,13 +12,14 @@ module.exports.pharmacySignin = async (req, res) => {
     if (errors.isEmpty()) {
         let pharmacies = await pharmaciesModel.findOne({ email });
         if (pharmacies) {
-            //check if email is verified or not 
-            if (pharmacies.isVerified == false) {
-                res.json({ message: "email not Verified" });
-            }
+        
             // check hased password
             const match = await bcrypt.compare(password, pharmacies.password)
             if (match) {
+                    //check if email is verified or not 
+            if (pharmacies.isVerified == false) {
+                res.json({ message: "email not Verified" });
+            }
                 jwt.sign(
                     //retrieve in token 
                     {
@@ -46,11 +47,11 @@ module.exports.pharmacySignin = async (req, res) => {
                //  res.json({message:"success"});
             }
             else {
-                res.json({ msg: "Invalid email or password" });
+                res.json({ message: "Invalid email or password" });
             }
         }
         else {
-            res.json({ msg: "Invalid email or password" });
+            res.json({ message: "Invalid email or password" });
         }
     }
     else {
@@ -65,13 +66,14 @@ module.exports.customerSignin = async (req, res) => {
     if (errors.isEmpty()) {
         let customers = await customerModel.findOne({ email });
         if (customers) {
-            //check if email is verified or not 
-            if (customers.isVerified == false) {
-                res.json({ message: "email not Verified" });
-            }
+       
             // check hased password
             const match = await bcrypt.compare(password, customers.password)
             if (match) {
+                     //check if email is verified or not 
+            if (customers.isVerified == false) {
+                res.json({ message: "email not Verified" });
+            }
                 try {
 
 
