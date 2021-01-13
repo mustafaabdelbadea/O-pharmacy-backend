@@ -28,23 +28,23 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
                     to: email, // list of receivers
                     subject: "Hello ✔", // Subject line
                     text: "Hello world?", // plain text body
-                    html: ` <a href="http://${req.headers.host}/customerForgotPassword/${token}">click to confirm</a>`, // html body
+                    html: ` <a href="http://localhost:4200/customerForgotPassword/${token}">click to confirm</a>`, // html body
                 }
                     , (error) => {
 
                         if (error) {
-                            console.log(error);
+                            res.json(error);
 
                         }
                         else {
-                            res.json("Email Sent");
+                            res.json({message:"Email Sent"});
                         }
 
                     });
             })
     }
     else {
-        res.json('Email not found');
+        res.json({message:'Email not found'});
     }
 }
 
@@ -75,23 +75,23 @@ module.exports.forgotPasswordPharmacy = async (req, res) => {
                     to: email, // list of receivers
                     subject: "Hello ✔", // Subject line
                     text: "Hello world?", // plain text body
-                    html: ` <a href="http://${req.headers.host}/pharmacyForgotPassword/${token}">click to confirm</a>`, // html body
+                    html: ` <a href="http://localhost:4200/pharmacyForgotPassword/${token}">click to confirm</a>`, // html body
                 }
                     , (error) => {
 
                         if (error) {
-                            console.log(error);
+                             res.json(error);
 
                         }
                         else {
-                            res.json("Email Sent");
+                            res.json({message:"Email Sent"});
                         }
 
                     });
             })
     }
     else {
-        res.json('Email not found');
+        res.json({message:'Email not found'});
     }
 }
 
