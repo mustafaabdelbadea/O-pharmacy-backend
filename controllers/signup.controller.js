@@ -74,7 +74,7 @@ module.exports.pharmacySignup = async (req, res) => {
         
           <div style="background-color:#000;color:#fff; padding:100px">
           
-        <h1 style="margin:50px"> <a href="http://${req.headers.host}/pharmacyVerifyEmail/${token}">click to confirm</a>  </h1>
+        <h1 style="margin:50px"> <a href="http://localhost:4200/pharmacyVerifyEmail/${token}">click to confirm</a>  </h1>
           
           </div>
       
@@ -183,7 +183,7 @@ module.exports.customerSignup = async (req, res) => {
          
            <div style="background-color:#000;color:#fff; padding:100px">
            
-         <h1 style="margin:50px"> <a href="http://${req.headers.host}/customerVerifyEmail/${token}">click to confirm</a>  </h1>
+         <h1 style="margin:50px"> <a href="http://localhost:4200/customerVerifyEmail/${token}">click to confirm</a>  </h1>
            
            </div>
        
@@ -202,7 +202,7 @@ module.exports.customerSignup = async (req, res) => {
             res.json({ massege: "success" })
           }
           catch (e) {// print error if it exist
-            res.json(e)
+            res.json({message:e})
           }
 
         });
