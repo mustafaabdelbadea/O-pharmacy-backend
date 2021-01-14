@@ -30,7 +30,7 @@ module.exports.pharmacySignup = async (req, res) => {
     const pharmacy = await pharmaciesModel.findOne({ email }); // search if email exist in data base
     //console.log(pharmacy);
     if (pharmacy) {
-      res.json("email is alrady exist")// if email exist
+      res.json({message:"email is alrady exist"})// if email exist
     }
     else {// if email not exist will hash password and save info in database and print success
 
@@ -100,7 +100,7 @@ module.exports.pharmacySignup = async (req, res) => {
     }
     // const match = await bcrypt.compare(password, pharmacy.passwordHash);
   } else {
-    res.json({ message: 'enter valid data' });
+    res.json({ message: 'enter valid data',errors });
   }
 
 
@@ -134,11 +134,11 @@ module.exports.customerSignup = async (req, res) => {
     const customerPhone = await customersModel.findOne({ phone });// search if phone exist in data base
     // console.log(customer);
     if (customerEmail) {
-      res.json("email is alrady exist")// if email exist
+      res.json({message:"email is alrady exist"})// if email exist
     }
     else {// if email not exist will check for the phone hash password and save info in database and print success
       if (customerPhone) {
-        res.json("phone is alrady exist") // if phone exist
+        res.json({message:"phone is alrady exist"}) // if phone exist
       }
       else {   // if email and phone not exist will hash password and save info in database and print success
 
@@ -212,7 +212,7 @@ module.exports.customerSignup = async (req, res) => {
   }
 
   else {
-    res.json({ message: 'enter valid data' });
+    res.json({ message: 'enter valid data' ,errors});
   }
 }
 
