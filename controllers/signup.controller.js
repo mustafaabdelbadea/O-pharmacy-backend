@@ -124,7 +124,7 @@ module.exports.customerSignup = async (req, res) => {
       }
     },
     birthDate,
-    gander } = req.body
+    gender } = req.body
 
 
   const errors = validationResult(req); //check input validation
@@ -155,7 +155,7 @@ module.exports.customerSignup = async (req, res) => {
               }
             },
             birthDate,
-            gander
+            gender
           })
 
           try {

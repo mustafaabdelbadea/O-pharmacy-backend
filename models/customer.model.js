@@ -50,7 +50,7 @@ let customerSchema = mongoose.Schema({
         required: true
     },
 
-    gander: {
+    gender: {
         type: String,
         required: true
     },

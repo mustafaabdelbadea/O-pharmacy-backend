@@ -88,7 +88,7 @@ module.exports.customerSignin = async (req, res) => {
                             locationAsCoordinates:customers.locationAsCoordinates,
                             birthDate:customers.birthDate,
                             age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
-                            gander:customers.gander,
+                            gender:customers.gender,
                             photo:customers.photo,
                             role:customers.role
                         },
