@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 module.exports = (req, res, next) => {
     //send token in header 
-    const token = req.header('token');
+    const token = req.body.token;
     //check if token is exists and token is right
     if (token && token != null && token != undefined) {
         jwt.verify(token, 'pharmjwt', (err, decoded) => {
