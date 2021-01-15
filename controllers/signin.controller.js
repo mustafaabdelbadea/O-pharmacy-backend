@@ -26,6 +26,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         _id: pharmacies._id,
                         name: pharmacies.name,
                         phones: pharmacies.phones,
+                        email:pharmacies.email,
                         locationAsAderss: pharmacies.locationAsAderss,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
