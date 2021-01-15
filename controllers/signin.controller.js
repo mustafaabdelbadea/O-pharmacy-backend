@@ -29,7 +29,6 @@ module.exports.pharmacySignin = async (req, res) => {
                         locationAsAderss: pharmacies.locationAsAderss,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
-                        role:pharmacies.role,
                         logo:pharmacies.logo
                     },
                     //secret key pharmjwt
@@ -89,8 +88,7 @@ module.exports.customerSignin = async (req, res) => {
                             birthDate:customers.birthDate,
                             age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
                             gender:customers.gender,
-                            photo:customers.photo,
-                            role:customers.role
+                            photo:customers.photo
                         },
                         //secret key pharmjwt
                         "pharmjwt",
