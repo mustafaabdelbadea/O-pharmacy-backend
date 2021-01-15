@@ -22,6 +22,8 @@ module.exports.reportProblem=async(req,res)=>{
        <div style="background-color:#000;color:#fff; padding:100px">
        
      <h1 style="margin:50px">  Sender: ${ req.body.email}</h1>
+     <h1 style="margin:50px">  Sender: ${ req.body.name}</h1>
+
      <h2 style="margin:50px">  role: ${ req.body.role}</h2>
      <h2 style="margin:50px"> phone   ${ req.body.phone}</h2>
      <p style="margin:50px"> problem:   ${ req.body.problem}</p>
