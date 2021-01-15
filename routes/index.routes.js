@@ -23,6 +23,7 @@ const cancel=require('../controllers/cancel.controller');
 const done=require('../controllers/doneOrder.controller');
 const currentOrders=require('../controllers/currentAcceptedOrder.controller');
 const customerCurrent=require('../controllers/customerCurrentOrder.controller');
+const  reportProblem  = require('../controllers/reportProblem.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -56,6 +57,7 @@ indexRouter.get('/pharmacyOrderHistory',authMiddleware,orderHistory.pharmacyOrde
 indexRouter.get('/customerCurrentOrders',authMiddleware,currentOrders.customerCurrentOrders);
 indexRouter.get('/pharmacyCurrentOrders',authMiddleware,currentOrders.pharmacyCurrentOrders);
 indexRouter.post('/rate',authMiddleware,rate.rate);
+indexRouter.post('/reportProblem',authMiddleware,reportProblem.reportProblem);
 //indexRouter.get('/cancel/:orderId',authMiddleware,cancel.cancelOrder);
 //indexRouter.get('/doneorder/:orderId',authMiddleware,done.doneOrder);
 indexRouter.get('/customerCurrent',authMiddleware,customerCurrent.customerCurrent);
