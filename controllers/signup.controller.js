@@ -90,7 +90,7 @@ module.exports.pharmacySignup = async (req, res) => {
               });
             }
           )
-          res.json({ massege: "success" })
+          res.json({ message: "success" })
         }
         catch (e) {// print error if it exist
           res.json(e)
@@ -199,7 +199,7 @@ module.exports.customerSignup = async (req, res) => {
                 });
               }
             )
-            res.json({ massege: "success" })
+            res.json({ message: "success" })
           }
           catch (e) {// print error if it exist
             res.json({message:e})
