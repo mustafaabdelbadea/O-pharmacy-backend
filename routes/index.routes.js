@@ -48,6 +48,8 @@ indexRouter.post('/addPharmacyPhones',authMiddleware,editController.add_Pharmacy
 indexRouter.post('/editCustomerPhone',authMiddleware,phoneValidation.phoneValidation,editController.edit_customer_phone);
 indexRouter.post('/editPharmacyAddress',authMiddleware,editController.edit_Pharmacy_address);
 indexRouter.post('/editCustomerAddress',authMiddleware,editController.edit_customer_address);
+indexRouter.post('/editPharmacyLogo',authMiddleware,editController.edit_Pharmacy_logo);
+indexRouter.post('/editCustomerPhoto',authMiddleware,editController.edit_customer_photo);
 indexRouter.post('/editPharmacyCoordinates',authMiddleware,editController.edit_Pharmacy_coordinates);
 indexRouter.post('/editCustomerCoordinates',authMiddleware,editController.edit_customer_coordinates);
 indexRouter.post('/pharmacyAgree',authMiddleware,pharmacyAgreeOrder.pharmacyAgreeOrder);
