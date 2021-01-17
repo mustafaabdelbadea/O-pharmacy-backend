@@ -17,9 +17,9 @@ module.exports.pharmacySignin = async (req, res) => {
             const match = await bcrypt.compare(password, pharmacies.password)
             if (match) {
                     //check if email is verified or not 
-            if (pharmacies.isVerified == false) {
-                res.json({ message: "email not Verified" });
-            }
+            // if (pharmacies.isVerified == false) {
+            //     res.json({ message: "email not Verified" });
+            // }
                 jwt.sign(
                     //retrieve in token 
                     {
@@ -30,7 +30,8 @@ module.exports.pharmacySignin = async (req, res) => {
                         locationAsAderss: pharmacies.locationAsAderss,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
-                        logo:pharmacies.logo
+                        logo:pharmacies.logo,
+                        isVerified:pharmacies.isVerified
                     },
                     //secret key pharmjwt
                     "pharmjwt",
@@ -70,10 +71,10 @@ module.exports.customerSignin = async (req, res) => {
             // check hased password
             const match = await bcrypt.compare(password, customers.password)
             if (match) {
-                     //check if email is verified or not 
-            if (customers.isVerified == false) {
-                res.json({ message: "email not Verified" });
-            }
+            //          //check if email is verified or not 
+            // if (customers.isVerified == false) {
+            //     res.json({ message: "email not Verified" });
+            // }
                 try {
 
 
@@ -89,7 +90,9 @@ module.exports.customerSignin = async (req, res) => {
                             birthDate:customers.birthDate,
                             age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
                             gender:customers.gender,
-                            photo:customers.photo
+                            photo:customers.photo,
+                            isVerified:pharmacies.isVerified
+
                         },
                         //secret key pharmjwt
                         "pharmjwt",
