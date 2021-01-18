@@ -5,7 +5,10 @@ const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
 
 module.exports.edit_Pharmacy_name = async (req, res) => {
-    const token = req.header('token');
+    let token = req.header('token');
+    console.log(token);
+    token =token.substring(6);
+    console.log(token);
 
     jwt.verify(token, 'pharmjwt', async(err, decoded) => {
         if (err) {
@@ -14,10 +17,11 @@ module.exports.edit_Pharmacy_name = async (req, res) => {
         else {
            const id=decoded._id
            
-    const errors = validationResult(req); //check input validation
+   const errors = validationResult(req); //check input validation
   
     const { name} = req.body; // assing data in request into variabls
-    
+    console.log(req.body); 
+ 
     const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
  
         if(user){ // user is exist 
@@ -53,8 +57,9 @@ module.exports.edit_Pharmacy_name = async (req, res) => {
     };
 
 module.exports.edit_customer_name = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json('error in token');
