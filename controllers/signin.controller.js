@@ -16,10 +16,16 @@ module.exports.pharmacySignin = async (req, res) => {
             // check hased password
             const match = await bcrypt.compare(password, pharmacies.password)
             if (match) {
-                    //check if email is verified or not 
-            // if (pharmacies.isVerified == false) {
-            //     res.json({ message: "email not Verified" });
-            // }
+                    //check if email is verified or not  
+                    if (pharmacies.isVerified == false) {
+
+                        jwt.sign({  isVerified:pharmacies.isVerified
+                        },"pharmjwt",(err,token)=>{
+                            res.json({ message: "email not Verified",token:token });
+        
+                        }
+                        )
+                    }
                 jwt.sign(
                     //retrieve in token 
                     {
@@ -31,6 +37,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
                         logo:pharmacies.logo,
+                        verified:pharmacies.isVerified,
                         isVerified:pharmacies.isVerified
                     },
                     //secret key pharmjwt
@@ -71,10 +78,16 @@ module.exports.customerSignin = async (req, res) => {
             // check hased password
             const match = await bcrypt.compare(password, customers.password)
             if (match) {
-            //          //check if email is verified or not 
-            // if (customers.isVerified == false) {
-            //     res.json({ message: "email not Verified" });
-            // }
+              //check if email is verified or not 
+            if (customers.isVerified == false) {
+
+                jwt.sign({  isVerified:customers.isVerified
+                },"pharmjwt",(err,token)=>{
+                    res.json({ message: "email not Verified",token:token });
+
+                }
+                )
+            }
                 try {
 
 
@@ -91,7 +104,8 @@ module.exports.customerSignin = async (req, res) => {
                             age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
                             gender:customers.gender,
                             photo:customers.photo,
-                            isVerified:pharmacies.isVerified
+                            verified:customers.isVerified,
+                            isVerified:customers.isVerified
 
                         },
                         //secret key pharmjwt
