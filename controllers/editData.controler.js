@@ -106,7 +106,8 @@ module.exports.edit_customer_name = async (req, res) => {
     };
 
 module.exports.edit_Pharmacy_password = async (req, res) => {
-    const token = req.header('token');
+    let token = req.header('token');
+    token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async(err, decoded) => {
         if (err) {
@@ -162,7 +163,8 @@ module.exports.edit_Pharmacy_password = async (req, res) => {
 
 module.exports.edit_customer_password = async (req, res) => {
 
-    const token = req.header('token');
+    let token = req.header('token');
+    token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt',async(err, decoded) => {
         if (err) {
@@ -173,7 +175,8 @@ module.exports.edit_customer_password = async (req, res) => {
             const errors = validationResult(req); //check input validation
       
             const {oldpassword, password ,confirmPassword} = req.body; // assing data in request into variabls
-            
+            console.log(req.body);
+
             const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
          
         if(user){ // user is exist 
@@ -217,8 +220,10 @@ module.exports.edit_customer_password = async (req, res) => {
     };
 
 module.exports.edit_Pharmacy_phones = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json({message : 'error in token' ,errors: err });
@@ -265,8 +270,9 @@ module.exports.edit_Pharmacy_phones = async (req, res) => {
     };
 
 module.exports.add_Pharmacy_phones = async (req, res) => {
-            const token = req.header('token');
-        
+            let token = req.header('token');
+            token =token.substring(6);
+
             jwt.verify(token, 'pharmjwt', async(err, decoded) => {
                 if (err) {
                     res.json({message : 'error in token' ,errors: err });
@@ -316,8 +322,9 @@ module.exports.add_Pharmacy_phones = async (req, res) => {
     };
 
 module.exports.edit_customer_phone = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json('error in token');
@@ -364,8 +371,9 @@ module.exports.edit_customer_phone = async (req, res) => {
     };
 
 module.exports.edit_Pharmacy_address = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json({message : 'error in token' ,errors: err });
@@ -412,8 +420,9 @@ module.exports.edit_Pharmacy_address = async (req, res) => {
     };
 
 module.exports.edit_customer_address = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json('error in token');
@@ -460,8 +469,9 @@ module.exports.edit_customer_address = async (req, res) => {
     };
 
 module.exports.edit_Pharmacy_logo = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json({message : 'error in token' ,errors: err });
@@ -508,8 +518,9 @@ module.exports.edit_Pharmacy_logo = async (req, res) => {
     };
 
 module.exports.edit_customer_photo = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json('error in token');
@@ -556,8 +567,9 @@ module.exports.edit_customer_photo = async (req, res) => {
     };
 
 module.exports.edit_Pharmacy_coordinates = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json({message : 'error in token' ,errors: err });
@@ -606,8 +618,9 @@ module.exports.edit_Pharmacy_coordinates = async (req, res) => {
     };
 
 module.exports.edit_customer_coordinates = async (req, res) => {
-        const token = req.header('token');
-    
+        let token = req.header('token');
+        token =token.substring(6);
+
         jwt.verify(token, 'pharmjwt', async(err, decoded) => {
             if (err) {
                 res.json('error in token');
