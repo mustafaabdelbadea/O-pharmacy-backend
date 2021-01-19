@@ -7,8 +7,8 @@ const Geo = require('geo-nearby');
 
 module.exports.nearestPharmacy = async (req, res) => {
     //get all pharmacies and ignore password
-    const token = req.header('token');
-
+    let token = req.header('token');
+    token = token.substring(6);
     try {
         let { orderByTexting, orderByPhoto } = req.body;
         //check if customer entered order or not
@@ -30,6 +30,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                 data.push({
                     lat: pharmacies[pharmacy].locationAsCoordinates.coordinates.lat,
                     lon: pharmacies[pharmacy].locationAsCoordinates.coordinates.lon,
+                    //name here = id because the format of module
                     name: pharmacies[pharmacy]._id
                 })
             }
@@ -99,6 +100,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                             await order.save(); //save order in database
                             res.json({message:"order saved"});
                         } catch (error) {
+                            console.log(error)
                             res.json(error) //send error if it occur during saving in database
                         }
 

@@ -46,7 +46,7 @@ let ordersSchema = mongoose.Schema({
     }, //customer Address
     rate:{
         type:Number,
-        required:true,
+        required:false,
         default:null
     },
    globalStatus:{
