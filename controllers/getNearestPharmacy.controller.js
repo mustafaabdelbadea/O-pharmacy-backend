@@ -75,6 +75,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 orderByTexting,
                                 orderByPhoto,
                                 customerID: _id,
+                                rate:null,
                                 pharmaciesID: pharmaciesIdStatus
                             }) //take order
                         }
@@ -83,6 +84,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 date: Date.now(),
                                 orderByTexting,
                                 customerID: _id,
+                                rate:null,
                                 pharmaciesID: pharmaciesIdStatus
                             }) //take order
                         }
@@ -91,6 +93,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 date: Date(),
                                 orderByPhoto,
                                 customerID: _id,
+                                rate:null,
                                 pharmaciesID: pharmaciesIdStatus
                             }) //take order
                         }
