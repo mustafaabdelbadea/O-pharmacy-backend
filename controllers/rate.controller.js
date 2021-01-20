@@ -5,7 +5,8 @@ module.exports.rate = async (req, res) => {
     const token = req.header('token');
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
         //get order id and rate from body
-        const { orderId, rate } = req.body;
+        const { orderId, rate, report } = req.body;
+        console.log(report)
         //pharmacy id
         let pharmacyId;
         try {
@@ -39,9 +40,15 @@ module.exports.rate = async (req, res) => {
                         }
                         //get avg 
                         const final_rate = calcRate / loop;
-                        //update the rate in pharmacy model
-                        await pharmaciesModel.findOneAndUpdate({ _id: pharmacyId }, { rate: final_rate });
-                        res.json('Rated successfully');
+                        if (report == null || report == undefined) {
+                            //update the rate in pharmacy model
+                            await pharmaciesModel.findOneAndUpdate({ _id: pharmacyId }, { rate: final_rate, report: null });
+                            res.json('Rated successfully');
+                        }
+                        else {
+                            await pharmaciesModel.findOneAndUpdate({ _id: pharmacyId }, { rate: final_rate, report });
+                            res.json('Rated and reported successfully');
+                        }
                     } catch (error) {
                         console.log(error)
                     }

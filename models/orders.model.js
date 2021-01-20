@@ -54,7 +54,11 @@ let ordersSchema = mongoose.Schema({
         default:"notAccepted",
         required: true
    },
-
+   report:{
+    type:String,
+    required:false,
+    default:null
+},
     customerID: { type: mongoose.Schema.Types.ObjectId, ref: "customer",required:true },//relation between customer and orders
 
     pharmaciesID:[ { 

@@ -2,9 +2,7 @@ const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
 const ordersModel = require("../models/orders.model");
 const jwt = require('jsonwebtoken');
-
 const Geo = require('geo-nearby');
-
 module.exports.nearestPharmacy = async (req, res) => {
     //get all pharmacies and ignore password
     let token = req.header('token');
@@ -21,10 +19,8 @@ module.exports.nearestPharmacy = async (req, res) => {
              data=[
                 { lat:'5252',lon:"665851",name:"_id"} ,
                 { lat:'5252',lon:"665851",name:"_id"} 
-         
             ]
             */
-
             const data = [];
             for (pharmacy = 0; pharmacy < pharmacies.length; pharmacy++) {
                 data.push({
@@ -48,15 +44,12 @@ module.exports.nearestPharmacy = async (req, res) => {
 
                     let customer = await customersModel.findOne({ _id });
                     //get lat and lon of customer and address
-
                     const customerLat = customer.locationAsCoordinates.coordinates.lat;
                     const customerLon = customer.locationAsCoordinates.coordinates.lon;
                     const cutsomerAddres = customer.locationAsAddress;
                     //check if cutomer has enered coordinates or not
                     if (customerLat && customerLat != undefined && customerLat != null && customerLon && customerLon != undefined && customerLon != null) {
-                        console.log(cutsomerAddres)
                         console.log(geo.nearBy(customerLat, customerLon, 2000))
-
                         nearPharmacies = geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
                         console.log(nearPharmacies);
                         pharmaciesIdStatus = []//array of object for near Pharmacy id and order status for it
@@ -66,9 +59,10 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 status: "active"
                             })
                         }
+                        //check if there any near pharmacy or not 
+                        if (nearPharmacies.length!=0){
                         console.log(pharmaciesIdStatus);
                         let order;
-
                         if (orderByTexting && orderByPhoto) {
                             order = new ordersModel({
                                 date: Date.now(),
@@ -76,7 +70,8 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 orderByPhoto,
                                 customerID: _id,
                                 rate:null,
-                                pharmaciesID: pharmaciesIdStatus
+                                pharmaciesID: pharmaciesIdStatus,
+                                report:null
                             }) //take order
                         }
                         else if (orderByTexting) {
@@ -85,7 +80,9 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 orderByTexting,
                                 customerID: _id,
                                 rate:null,
-                                pharmaciesID: pharmaciesIdStatus
+                                orderByPhoto:null,
+                                pharmaciesID: pharmaciesIdStatus,
+                                report:null
                             }) //take order
                         }
                         else if (orderByPhoto) {
@@ -94,10 +91,11 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 orderByPhoto,
                                 customerID: _id,
                                 rate:null,
-                                pharmaciesID: pharmaciesIdStatus
+                                orderByTexting:null,
+                                pharmaciesID: pharmaciesIdStatus,
+                                report:null
                             }) //take order
                         }
-
                         console.log(order);
                         try {
                             await order.save(); //save order in database
@@ -106,22 +104,19 @@ module.exports.nearestPharmacy = async (req, res) => {
                             console.log(error)
                             res.json(error) //send error if it occur during saving in database
                         }
-
-
-
+                    }else{
+                        res.json({message:'no pharmacy near for you'});
+                    }
                     }
                     else {
-                        res.json({ msg: "enter your location on map" });
+                        res.json({ message: "enter your location on map" });
                     }
                 }
-
             })
-
             //get all pharmacies in 2 kilos
-
         }
         else {
-            res.json({ msg: "no order found" });
+            res.json({ message: "no order found" });
         }
     } catch (error) {
         res.json(error);
