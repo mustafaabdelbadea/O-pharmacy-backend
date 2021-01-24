@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports.customerOrderHistory = (req, res) => 
 {
-    const token = req.header('token');
+    let token = req.header('token');
+    token =token.substring(6);
+
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         const customerId = decoded._id;//take customer id from header token 
@@ -32,7 +34,9 @@ module.exports.customerOrderHistory = (req, res) =>
 
 module.exports.pharmacyOrderHistory = (req, res) => 
 {
-    const token = req.header('token');
+    let token = req.header('token');
+    token =token.substring(6);
+    
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 

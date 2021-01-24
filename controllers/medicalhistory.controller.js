@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 module.exports.medicalhistory = async (req, res) => {
-  const token = req.header('token');
-
+  let token = req.header('token');
+  token =token.substring(6);
   jwt.verify(token, 'pharmjwt', async (err, decoded) => {
     
     const _id = decoded._id;
@@ -63,8 +63,8 @@ module.exports.medicalhistory = async (req, res) => {
 //  }
 
 module.exports.retrieveData=async(req,res)=>{
-  const token = req.header('token');
-
+  let token = req.header('token');
+  token =token.substring(6);
   jwt.verify(token, 'pharmjwt', async (err, decoded) => {
     const _id = decoded._id;
     const customerID = _id ;

@@ -31,7 +31,9 @@ module.exports.customerCurrentOrders = (req, res) =>
 
 module.exports.pharmacyCurrentOrders = (req, res) => 
 {
-    const token = req.header('token');
+    let  token = req.header('token');
+    token =token.substring(6);
+    
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 
