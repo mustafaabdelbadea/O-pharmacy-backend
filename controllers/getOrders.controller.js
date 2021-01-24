@@ -2,7 +2,11 @@ const ordersModel = require('../models/orders.model');
 const jwt = require('jsonwebtoken');
 const customersModel = require("../models/customer.model");
 module.exports.pharmacyGetOrders = (req, res) => {
-    const token = req.header('token');
+   
+    let token = req.header('token');
+    token =token.substring(6);
+
+   
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
         let notAgreedOrders = [];
         const pharmacyId = decoded._id;

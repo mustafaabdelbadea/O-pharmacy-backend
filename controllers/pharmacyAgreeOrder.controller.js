@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports.pharmacyAgreeOrder = (req, res) => {
     const token = req.header('token');
+    token =token.substring(6);
+
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         let notAgreedOrders = [];
@@ -78,6 +80,8 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
 
 module.exports.pharmacyNotAgree = (req, res) => {
     const token = req.header('token');
+    token =token.substring(6);
+
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         let notAgreedOrders = [];
