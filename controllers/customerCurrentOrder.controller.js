@@ -18,8 +18,8 @@ module.exports.customerCurrent=async (req,res)=>{
                 const pharmacyId=orderData.pharmaciesID[0].id;
                 const customersId=orderData.customerID;
                 let pharmacyData;
-                if (condition) {
-                    pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
+                if (orderData.globalStatus=='canceled'||orderData.globalStatus=='accepted'||orderData.globalStatus=='notAccepted') {
+                    pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo locationAsAddress locationAsCoordinates");
                 }else{
                     pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
                 }
