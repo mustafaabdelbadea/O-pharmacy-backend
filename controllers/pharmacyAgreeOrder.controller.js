@@ -2,7 +2,7 @@ const ordersModel = require('../models/orders.model');
 const jwt = require('jsonwebtoken');
 
 module.exports.pharmacyAgreeOrder = (req, res) => {
-    const token = req.header('token');
+    let token = req.header('token');
     token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
@@ -79,7 +79,7 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
 }
 
 module.exports.pharmacyNotAgree = (req, res) => {
-    const token = req.header('token');
+    let token = req.header('token');
     token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
@@ -145,7 +145,7 @@ module.exports.pharmacyNotAgree = (req, res) => {
 /*
 
 module.exports.ll = (req, res) => {
-    const token = req.header('token');
+    let token = req.header('token');
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
 
         let notAgreedOrders = [];
