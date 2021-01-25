@@ -62,7 +62,7 @@ indexRouter.post('/rate',authMiddleware,rate.rate);
 indexRouter.post('/reportProblem',authMiddleware,reportProblem.reportProblem);
 //indexRouter.get('/cancel/:orderId',authMiddleware,cancel.cancelOrder);
 //indexRouter.get('/doneorder/:orderId',authMiddleware,done.doneOrder);
-indexRouter.get('/customerCurrent',authMiddleware,customerCurrent.customerCurrent);
+indexRouter.get('/currentOrder/:orderId',authMiddleware,customerCurrent.customerCurrent);
 indexRouter.get('/cancel',authMiddleware,cancel.cancelOrder);
 indexRouter.get('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);

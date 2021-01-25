@@ -1,5 +1,6 @@
 const ordersModel = require('../models/orders.model');
 const jwt = require('jsonwebtoken');
+const customersModel = require("../models/customer.model");
 const pharmaciesModel = require("../models/pharmacies.model");
 module.exports.customerCurrent=async (req,res)=>{
     let token = req.header('token');
@@ -7,13 +8,17 @@ module.exports.customerCurrent=async (req,res)=>{
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
         const customerId = decoded._id;
-        const orderId=req.body._id;
+        const orderId=req.params.orderId;
+        //const orderId=req.body._id;
         try {
             const orderData=await ordersModel.findById({_id:orderId});
-            if(orderData.globalStatus=='accepted'){
-            const pharmacyId=orderData.pharmaciesID[0].id;
+            if(orderData.globalStatus=='done'||orderData.globalStatus=='accepted'||orderData.globalStatus=='notAccepted'){
+            
+                const pharmacyId=orderData.pharmaciesID[0].id;
+                const customersId=orderData.customerID;
                 let pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
-                res.json({orderData,pharmacyData});
+                let customersData=await customersModel.findById({_id:customersId}).select(" name phone photo locationAsAddress locationAsCoordinates");
+                res.json({orderData,pharmacyData,customersData});
 
             }
             else{
