@@ -5,10 +5,14 @@ module.exports.getOnePharmacy=async (req,res)=>{
     token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
+        console.log('test')
         const onePharmacyId=req.params.pharmacyID;
         try {
-            const onePharmacy=await (await pharmaciesModel.findById({_id:onePharmacyId})).select("name phones locationAsAddress locationAsCoordinates rate logo");;
-             res.json(onePharmacy);
+
+            const onePharmacy=await pharmaciesModel.findById({_id:onePharmacyId}).select("name phones locationAsAddress locationAsCoordinates rate logo");;
+            console.log(onePharmacy)
+
+            res.json(onePharmacy);
 
         } catch (error) {
              res.json(error);
