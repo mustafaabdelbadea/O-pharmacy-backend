@@ -41,7 +41,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                 }
                 else {
                     const _id = decoded._id;
-
+                    let canOrder = true;
                     let customer = await customersModel.findOne({ _id });
                     //get lat and lon of customer and address
                     const customerLat = customer.locationAsCoordinates.coordinates.lat;
@@ -49,64 +49,79 @@ module.exports.nearestPharmacy = async (req, res) => {
                     const cutsomerAddres = customer.locationAsAddress;
                     //check if cutomer has enered coordinates or not
                     if (customerLat && customerLat != undefined && customerLat != null && customerLon && customerLon != undefined && customerLon != null) {
-                        console.log(geo.nearBy(customerLat, customerLon, 2000))
-                        nearPharmacies = geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
-                        console.log(nearPharmacies);
-                        pharmaciesIdStatus = []//array of object for near Pharmacy id and order status for it
-                        for (pharmacy = 0; pharmacy < nearPharmacies.length; pharmacy++) {
-                            pharmaciesIdStatus.push({
-                                id: nearPharmacies[pharmacy].i,
-                                status: "active"
-                            })
+                        let checkOrders = await ordersModel.find({ customerID: _id });
+                        //check order not accepted or not done can't order again
+                        for (let o = 0; o < checkOrders.length; o++) {
+                            if (checkOrders[o].globalStatus == 'notAccepted' || checkOrders[o].globalStatus == 'accepted') {
+                                canOrder = false;
+                            }
+                            else {
+                                continue;
+                            }
                         }
-                        //check if there any near pharmacy or not 
-                        if (nearPharmacies.length!=0){
-                        console.log(pharmaciesIdStatus);
-                        let order;
-                        if (orderByTexting && orderByPhoto) {
-                            order = new ordersModel({
-                                date: Date.now(),
-                                orderByTexting,
-                                orderByPhoto,
-                                customerID: _id,
-                                rate:null,
-                                pharmaciesID: pharmaciesIdStatus,
-                                report:null
-                            }) //take order
+                        if (!canOrder) {
+                            res.json({ message: "there is an order found can't order again" });
+
+                        } else {
+                            console.log(geo.nearBy(customerLat, customerLon, 2000))
+                            nearPharmacies = geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
+                            console.log(nearPharmacies);
+                            pharmaciesIdStatus = []//array of object for near Pharmacy id and order status for it
+                            for (pharmacy = 0; pharmacy < nearPharmacies.length; pharmacy++) {
+                                pharmaciesIdStatus.push({
+                                    id: nearPharmacies[pharmacy].i,
+                                    status: "active"
+                                })
+                            }
+                            //check if there any near pharmacy or not 
+                            if (nearPharmacies.length != 0) {
+                                console.log(pharmaciesIdStatus);
+                                let order;
+                                if (orderByTexting && orderByPhoto) {
+                                    order = new ordersModel({
+                                        date: Date.now(),
+                                        orderByTexting,
+                                        orderByPhoto,
+                                        customerID: _id,
+                                        rate: null,
+                                        pharmaciesID: pharmaciesIdStatus,
+                                        report: null
+                                    }) //take order
+                                }
+                                else if (orderByTexting) {
+                                    order = new ordersModel({
+                                        date: Date.now(),
+                                        orderByTexting,
+                                        customerID: _id,
+                                        rate: null,
+                                        orderByPhoto: null,
+                                        pharmaciesID: pharmaciesIdStatus,
+                                        report: null
+                                    }) //take order
+                                }
+                                else if (orderByPhoto) {
+                                    order = new ordersModel({
+                                        date: Date(),
+                                        orderByPhoto,
+                                        customerID: _id,
+                                        rate: null,
+                                        orderByTexting: null,
+                                        pharmaciesID: pharmaciesIdStatus,
+                                        report: null
+                                    }) //take order
+                                }
+                                console.log(order);
+                                try {
+                                    await order.save(); //save order in database
+                                    res.json({ message: "order saved" });
+                                } catch (error) {
+                                    console.log(error)
+                                    res.json(error) //send error if it occur during saving in database
+                                }
+                            } else {
+                                res.json({ message: 'no pharmacy near for you' });
+                            }
                         }
-                        else if (orderByTexting) {
-                            order = new ordersModel({
-                                date: Date.now(),
-                                orderByTexting,
-                                customerID: _id,
-                                rate:null,
-                                orderByPhoto:null,
-                                pharmaciesID: pharmaciesIdStatus,
-                                report:null
-                            }) //take order
-                        }
-                        else if (orderByPhoto) {
-                            order = new ordersModel({
-                                date: Date(),
-                                orderByPhoto,
-                                customerID: _id,
-                                rate:null,
-                                orderByTexting:null,
-                                pharmaciesID: pharmaciesIdStatus,
-                                report:null
-                            }) //take order
-                        }
-                        console.log(order);
-                        try {
-                            await order.save(); //save order in database
-                            res.json({message:"order saved"});
-                        } catch (error) {
-                            console.log(error)
-                            res.json(error) //send error if it occur during saving in database
-                        }
-                    }else{
-                        res.json({message:'no pharmacy near for you'});
-                    }
                     }
                     else {
                         res.json({ message: "enter your location on map" });
