@@ -63,6 +63,7 @@ indexRouter.post('/reportProblem',authMiddleware,reportProblem.reportProblem);
 //indexRouter.get('/cancel/:orderId',authMiddleware,cancel.cancelOrder);
 //indexRouter.get('/doneorder/:orderId',authMiddleware,done.doneOrder);
 indexRouter.get('/currentOrder/:orderId',authMiddleware,customerCurrent.customerCurrent);
+indexRouter.get('/currentOrderPharmacy/:orderId',authMiddleware,customerCurrent.pharmcyCurrent);
 indexRouter.get('/cancel',authMiddleware,cancel.cancelOrder);
 indexRouter.get('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);
