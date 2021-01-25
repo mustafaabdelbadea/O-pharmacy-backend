@@ -6,12 +6,12 @@ module.exports.medicalhistory = async (req, res) => {
   let token = req.header('token');
   token =token.substring(6);
   jwt.verify(token, 'pharmjwt', async (err, decoded) => {
-    
+    console.log(req.body)
     const _id = decoded._id;
     const { doYouHaveDiabates, highBloodPreasure, highCholesterol,
       doYouSmoke, doYouVape, doYouDrinkAlcohol,
       doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-      bloodType, doYouHaveOtherHealthCondition, atientConcerns } = req.body;
+      bloodType, doYouHaveOtherHealthConditions, patientConcerns } = req.body;
   
     const checkMedical=await medicalhistory.findOne({customerID:_id});
    
@@ -20,7 +20,7 @@ module.exports.medicalhistory = async (req, res) => {
         medicalhistory.findOneAndUpdate({customerID:_id},{doYouHaveDiabates, highBloodPreasure, highCholesterol,
           doYouSmoke, doYouVape, doYouDrinkAlcohol,
           doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-          bloodType, doYouHaveOtherHealthCondition, atientConcerns});
+          bloodType, doYouHaveOtherHealthConditions, patientConcerns});
            res.json("updated");
       } catch (error) {
          res.json(error);
@@ -31,7 +31,7 @@ module.exports.medicalhistory = async (req, res) => {
         doYouHaveDiabates, highBloodPreasure, highCholesterol,
         doYouSmoke, doYouVape, doYouDrinkAlcohol,
         doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
-        bloodType, doYouHaveOtherHealthCondition, atientConcerns,
+        bloodType, doYouHaveOtherHealthConditions, patientConcerns,
         customerID: _id
       });
     try {

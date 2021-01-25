@@ -7,13 +7,15 @@ module.exports.customerCurrentOrders = (req, res) =>
     token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
-
+        console.log('test')
         const customerId = decoded._id;//take customer id from header token 
         try {
-         let customerOrders=[];
-         customerOrders = await ordersModel.find({customerID :customerId,globalStatus: "Accepted"})  
+            console.log(customerId)
+         let customerOrders;
+         customerOrders = await ordersModel.find({customerID :customerId,globalStatus: "accepted"})  
+         console.log(customerOrders)
          //find all accepted order that has same loged in customer
-        
+        console.log('test')
          if (customerOrders.length == 0) {
             res.json("no order founds") //no orders for this customer id
          }else{
@@ -38,7 +40,7 @@ module.exports.pharmacyCurrentOrders = (req, res) =>
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 
         try {
-            orders = await ordersModel.find({ globalStatus: "Accepted" })//find all accepted order
+            orders = await ordersModel.find({ globalStatus: "accepted" })//find all accepted order
             let pharmacyOrders=[];
            
             for( i=0; i<orders.length; i++){
