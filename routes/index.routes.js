@@ -25,6 +25,7 @@ const currentOrders=require('../controllers/currentAcceptedOrder.controller');
 const customerCurrent=require('../controllers/customerCurrentOrder.controller');
 const  reportProblem  = require('../controllers/reportProblem.controller');
 const { getOnePharmacy } = require('../controllers/getOnePharmacy.controller');
+const drugs=require('../controllers/getAllmedicine.controller');
 indexRouter.get('/', authMiddleware, signinController.home);
 indexRouter.post('/pharmacySignin', signinVaildation.signinValidation, signinController.pharmacySignin);
 indexRouter.post('/customerSignin', signinVaildation.signinValidation, signinController.customerSignin);
@@ -69,6 +70,10 @@ indexRouter.get('/currentOrderPharmacy/:orderId',authMiddleware,customerCurrent.
 indexRouter.get('/cancel',authMiddleware,cancel.cancelOrder);
 indexRouter.get('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);
+indexRouter.get('/addDrugs',drugs.addMedicine);
+indexRouter.get('/getAllMedicine',drugs.getAllMedicine);
+
+
 indexRouter.get('*',notfoundController.notfound );
 
 
