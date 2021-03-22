@@ -43,10 +43,7 @@ module.exports.pharmacyCurrentOrders = (req, res) =>
 
         const pharmacyId = decoded._id;//take pharmacy id from header token 
         try {
-            orders = await ordersModel.find({ $or: [
-                { globalStatus: "accepted" },
-                { globalStatus: "notAccepted" }
-              ] })//find all accepted order
+            orders = await ordersModel.find({ globalStatus: "accepted" })//find all accepted order
             let pharmacyOrders=[];
            
             for( i=0; i<orders.length; i++){
