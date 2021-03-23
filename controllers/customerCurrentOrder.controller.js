@@ -24,11 +24,11 @@ module.exports.customerCurrent=async (req,res)=>{
                     pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
                 }
                 
-                res.json({orderData,pharmacyData});
+                res.json({message:'success',orderData,pharmacyData});
 
             }
             else{
-                 res.json("no order found");
+                 res.json({message:"no order found"});
             }
         } catch (error) {
              res.json(error);
@@ -52,11 +52,11 @@ module.exports.pharmcyCurrent=async (req,res)=>{
                 const pharmacyId=orderData.pharmaciesID[0].id;
                 const customersId=orderData.customerID;
                 let customersData=await customersModel.findById({_id:customersId}).select(" name phone photo locationAsAddress locationAsCoordinates");
-                res.json({orderData,customersData});
+                res.json({message:'success',orderData,customersData});
 
             }
             else{
-                 res.json("no order found");
+                 res.json({message:"no order found"});
             }
         } catch (error) {
              res.json(error);

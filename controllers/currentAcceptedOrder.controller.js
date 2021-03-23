@@ -20,9 +20,9 @@ module.exports.customerCurrentOrders = (req, res) =>
          //find all accepted order that has same loged in customer
         console.log('test')
          if (customerOrders.length == 0) {
-            res.json("no order founds") //no orders for this customer id
+            res.json({message:"no order founds"}) //no orders for this customer id
          }else{
-            res.json(customerOrders)//retrieve customer orders history 
+            res.json({message:'success',customerOrders})//retrieve customer orders history 
               }
             
         } catch (error) {
@@ -60,9 +60,9 @@ module.exports.pharmacyCurrentOrders = (req, res) =>
 
 
             if (pharmacyOrders.length == 0) {
-                res.json("no order founds")//no orders for this customer id
+                res.json({message:"no order founds"})//no orders for this customer id
              }else{
-                res.json(pharmacyOrders)//retrieve pharmacy orders history 
+                res.json({message:'success',pharmacyOrders})//retrieve pharmacy orders history 
                   }
 
 
