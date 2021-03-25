@@ -33,6 +33,7 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
                     , (error) => {
 
                         if (error) {
+                            console.log(error)
                             res.json(error);
 
                         }
@@ -44,7 +45,7 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
             })
     }
     else {
-        res.json({message:'Email not found'});
+        res.json({message:'Email Not Found'});
     }
 }
 
@@ -91,7 +92,7 @@ module.exports.forgotPasswordPharmacy = async (req, res) => {
             })
     }
     else {
-        res.json({message:'Email not found'});
+        res.json({message:'Email Not Found'});
     }
 }
 

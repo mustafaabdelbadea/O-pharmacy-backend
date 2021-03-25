@@ -17,7 +17,7 @@ module.exports.customerForgotPassword = async (req, res) => {
       ExpaireDate = decodded.DateNow + 600000
       //check if token expaired or not
       if (Date.now() > ExpaireDate) {
-        res.json({message:"time out or token has been used before"});
+        res.json({message:"Link has been used before or time out"});
       }
       else {
         //check if there a problem in token
@@ -27,7 +27,7 @@ module.exports.customerForgotPassword = async (req, res) => {
           //check if there an error in validaiton and confirmation password
           const errors = validationResult(req);
           if(!errors.isEmpty()){
-            res.json({message:errors});
+            res.json({message:'Password confirmation does not match password'});
           }
   //if no errors are exist change the password 
   if (errors.isEmpty()){
@@ -62,7 +62,7 @@ module.exports.pharmacyForgotPassword = async (req, res) => {
       ExpaireDate = decodded.DateNow + 600000
       //check if token expaired or not
       if (Date.now() > ExpaireDate) {
-        res.json({message:"time out or token has been used before"});
+        res.json({message:"Link has been used before or time out"});
       }
       else {
         //check if there a problem in token
@@ -72,7 +72,7 @@ module.exports.pharmacyForgotPassword = async (req, res) => {
           //check if there an error in validaiton and confirmation password
           const errors = validationResult(req);
           if(!errors.isEmpty()){
-            res.json({message:errors});
+            res.json({message:'Password confirmation does not match password'});
           }
   //if no errors are exist change the password 
   if (errors.isEmpty()){
