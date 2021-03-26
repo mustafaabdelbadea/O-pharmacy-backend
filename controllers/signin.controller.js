@@ -36,7 +36,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         locationAsAderss: pharmacies.locationAsAderss,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
-                        logo:pharmacies.logo,
+                        
                         verified:pharmacies.isVerified,
                         isVerified:pharmacies.isVerified
                     },
@@ -49,7 +49,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         //         name: pharmacies.name
                         //     }
                         // )
-                        res.json({message:'success',token:token});
+                        res.json({message:'success',token:token,logo:pharmacies.logo});
                     }
                 )
                //  res.json({message:"success"});
@@ -103,7 +103,6 @@ module.exports.customerSignin = async (req, res) => {
                             birthDate:customers.birthDate,
                             age :Math.floor((Date.now() - new Date(customers.birthDate)) / 1000 / 60 / 60 / 24 / 365),
                             gender:customers.gender,
-                            photo:customers.photo,
                             verified:customers.isVerified,
                             isVerified:customers.isVerified
 
@@ -117,7 +116,7 @@ module.exports.customerSignin = async (req, res) => {
                             //         name: customers.name
                             //     }
                             // )
-                             res.json({message:'success',token:token});
+                             res.json({message:'success',token:token,photo:customers.photo});
                         }
                     )
                 }
