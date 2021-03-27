@@ -1,4 +1,5 @@
 const ordersModel = require('../models/orders.model');
+const pharmaciesModel = require("../models/pharmacies.model");
 const jwt = require('jsonwebtoken');
 
 module.exports.customerCurrentOrders = (req, res) => 
@@ -12,6 +13,8 @@ module.exports.customerCurrentOrders = (req, res) =>
         try {
             console.log(customerId)
          let customerOrders;
+         let pharmacyData;
+
          customerOrders = await ordersModel.find({customerID :customerId, $or: [
             { globalStatus: "accepted" },
             { globalStatus: "notAccepted" }
@@ -22,9 +25,11 @@ module.exports.customerCurrentOrders = (req, res) =>
          if (customerOrders.length == 0) {
             res.json({message:"no order founds"}) //no orders for this customer id
          }else{
-            res.json({message:'success',customerOrders})//retrieve customer orders history 
-              }
-            
+            const pharmacyId=customerOrders[0].pharmaciesID[0].id;
+            pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
+            console.log(pharmacyData);
+            res.json({message:'success',customerOrders,pharmacyData})//retrieve customer orders history 
+              }           
         } catch (error) {
             res.json(error)
             console.log(error);
