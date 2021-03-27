@@ -30,7 +30,7 @@ module.exports.pharmacySignup = async (req, res) => {
     const pharmacy = await pharmaciesModel.findOne({ email }); // search if email exist in data base
     //console.log(pharmacy);
     if (pharmacy) {
-      res.json({message:"email is alrady exist"})// if email exist
+      res.json({message:"Email is already exist"})// if email exist
     }
     else {// if email not exist will hash password and save info in database and print success
 
@@ -90,7 +90,7 @@ module.exports.pharmacySignup = async (req, res) => {
               });
             }
           )
-          res.json({ message: "success" })
+          res.json({ message: "Success" })
         }
         catch (e) {// print error if it exist
           res.json({message:e})
@@ -134,11 +134,11 @@ module.exports.customerSignup = async (req, res) => {
     const customerPhone = await customersModel.findOne({ phone });// search if phone exist in data base
     // console.log(customer);
     if (customerEmail) {
-      res.json({message:"email is alrady exist"})// if email exist
+      res.json({message:"Email is already exist"})// if email exist
     }
     else {// if email not exist will check for the phone hash password and save info in database and print success
       if (customerPhone) {
-        res.json({message:"phone is alrady exist"}) // if phone exist
+        res.json({message:"Phone is already exist"}) // if phone exist
       }
       else {   // if email and phone not exist will hash password and save info in database and print success
 
@@ -199,7 +199,7 @@ module.exports.customerSignup = async (req, res) => {
                 });
               }
             )
-            res.json({ message: "success" })
+            res.json({ message: "Success" })
           }
           catch (e) {// print error if it exist
             res.json({message:e})
@@ -212,7 +212,7 @@ module.exports.customerSignup = async (req, res) => {
   }
 
   else {
-    res.json({ message: 'enter valid data' ,errors});
+    res.json({ message: 'Enter valid data' ,errors});
   }
 }
 
