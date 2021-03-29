@@ -60,7 +60,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                             }
                         }
                         if (!canOrder) {
-                            res.json({ message: "there is an order found can't order again" });
+                            res.json({ message: "There is an order found can't order again" });
 
                         } else {
                             console.log(geo.nearBy(customerLat, customerLon, 2000))
@@ -113,13 +113,13 @@ module.exports.nearestPharmacy = async (req, res) => {
                                 console.log(order);
                                 try {
                                     await order.save(); //save order in database
-                                    res.json({ message: "order saved" });
+                                    res.json({ message: "Order saved" });
                                 } catch (error) {
                                     console.log(error)
                                     res.json(error) //send error if it occur during saving in database
                                 }
                             } else {
-                                res.json({ message: 'no pharmacy near for you' });
+                                res.json({ message: 'No pharmacy near for you' });
                             }
                         }
                     }
