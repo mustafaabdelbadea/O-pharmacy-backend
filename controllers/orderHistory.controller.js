@@ -62,9 +62,9 @@ module.exports.pharmacyOrderHistory = (req, res) =>
 
 
             if (pharmacyOrders.length == 0) {
-                res.json({message:"You Didn't Order Yet"})//no orders for this customer id
+                res.json({message:"You Didn't Receive Order Yet"})//no orders for this customer id
              }else{
-                res.json({message:'success',customerOrders})//retrieve pharmacy orders history 
+                res.json({message:'success',pharmacyOrders})//retrieve pharmacy orders history 
                   }
 
 
