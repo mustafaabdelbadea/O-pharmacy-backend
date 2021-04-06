@@ -11,7 +11,7 @@ module.exports.cancelOrder = async (req, res) => {
         //console.log(Order);  res.json(Order)
         if (Order) // if order found
           {
-            if (Order.globalStatus == "Accepted") // if order was accpted by pharmacy 
+            if (Order.globalStatus == "accepted") // if order was accpted by pharmacy 
             {  try {
                     await ordersModel.findOneAndUpdate({_id:orderId},{globalStatus:"canceled"}); // update globalStatus to canceled 
                     res.json({msg:" order canceled"})
