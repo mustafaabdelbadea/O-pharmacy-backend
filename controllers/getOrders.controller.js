@@ -24,7 +24,7 @@ module.exports.pharmacyGetOrders = (req, res) => {
                             try {
                                 //get cutomer data
                                 const customerData = await customersModel.findById({ _id: customerID }).select("name phone photo locationAsAddress locationAsCoordinates");
-                                res.json({ order: notAgreedOrders[i], cutomerData: customerData });
+                                res.json({ order: notAgreedOrders[i], customerData: customerData });
                             } catch (error) {
                                 res.json(error);
                             }
