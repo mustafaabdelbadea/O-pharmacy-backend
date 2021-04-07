@@ -33,7 +33,7 @@ module.exports.pharmacyGetOrders = (req, res) => {
                 }
             }
             else {
-                res.json({ msg: "no orders found" });
+                res.json({ message: "no orders found" });
 
             }
         } catch (error) {
