@@ -1,5 +1,6 @@
 const ordersModel = require('../models/orders.model');
 const pharmaciesModel = require("../models/pharmacies.model");
+const customersModel = require("../models/customer.model");
 const jwt = require('jsonwebtoken');
 
 module.exports.customerCurrentOrders = (req, res) => 
@@ -55,7 +56,9 @@ module.exports.pharmacyCurrentOrders = (req, res) =>
         
                 if(orders[i].pharmaciesID[0].id == pharmacyId)
                 {
-                    pharmacyOrders.push(orders[i]); //add order to history if it has same pharmacy id  
+                    const customersId=orders[i].customerID;
+                    let customersData=await customersModel.findById({_id:customersId}).select(" name phone photo locationAsAddress locationAsCoordinates");    
+                    pharmacyOrders.push({orderdata:orders[i],customersData}); //add order to history if it has same pharmacy id  
                 }
                 else
                 {
