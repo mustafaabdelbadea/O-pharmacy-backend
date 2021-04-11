@@ -14,7 +14,7 @@ module.exports.cancelOrder = async (req, res) => {
             if (Order.globalStatus == "accepted") // if order was accpted by pharmacy 
             {  try {
                     await ordersModel.findOneAndUpdate({_id:orderId},{globalStatus:"canceled"}); // update globalStatus to canceled 
-                    res.json({msg:" order canceled"})
+                    res.json({message:" order canceled"})
                 } 
                 catch (error) // get errors
                 {
@@ -26,7 +26,7 @@ module.exports.cancelOrder = async (req, res) => {
             {
                 try {
                     await ordersModel.findOneAndRemove({_id:orderId}); // delete order from database
-                    res.json({msg:" order canceled and deleted"})
+                    res.json({message:" order canceled and deleted"})
                     }
                 catch(error)// get errors
                     {
@@ -36,15 +36,15 @@ module.exports.cancelOrder = async (req, res) => {
             }
           else if (Order.globalStatus == "canceled") //if order was recanty canceled
           {  
-            res.json({msg:" order already canceled"})   
+            res.json({message:" order already canceled"})   
           }
           else if (Order.globalStatus == "done") //if order was recanty canceled
           {  
-            res.json({msg:"this order done you can't cancel it"})   
+            res.json({message:"this order done you can't cancel it"})   
           }
         }
         else{ 
-            res.json({msg:"order not found"}) // condtion if order not found
+            res.json({message:"order not found"}) // condtion if order not found
         }
 
     } catch (error) // get errors

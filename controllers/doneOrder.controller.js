@@ -13,7 +13,7 @@ module.exports.doneOrder = async (req, res) =>
                 try
                 {
                     await ordersModel.findOneAndUpdate({_id:orderId},{globalStatus:"done"}); // done orde
-                    res.json({msg:"order done"});
+                    res.json({message:"order done"});
                 }
                 catch(error)
                 {
@@ -22,15 +22,15 @@ module.exports.doneOrder = async (req, res) =>
             }
             else
                 if (Order.globalStatus == "canceled") {
-                    res.json({msg:"this order was canceled"}); //order was canceled
+                    res.json({message:"this order was canceled"}); //order was canceled
                 }
                 else if (Order.globalStatus == "notAccepted") {
                     
-                    res.json({msg:"this order doesn't Accepted you shoud Accept it frist to done it"});
+                    res.json({message:"this order doesn't Accepted you shoud Accept it frist to done it"});
                 }
             
         } else {
-            res.json({msg:"order not found"});
+            res.json({message:"order not found"});
         }
 
         }
