@@ -72,7 +72,7 @@ indexRouter.post('/doneorder',authMiddleware,done.doneOrder);
 indexRouter.get('/getOrders',authMiddleware,getOrders.pharmacyGetOrders);
 indexRouter.get('/addDrugs',drugs.addMedicine);
 indexRouter.get('/getAllMedicine',drugs.getAllMedicine);
-
+indexRouter.post('/pharmacyPrivilege', signinVaildation.signinValidation, signinController.pharmacyPrivilege)
 
 indexRouter.get('*',notfoundController.notfound );
 

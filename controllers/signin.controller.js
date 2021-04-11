@@ -166,3 +166,49 @@ module.exports.home = async (req, res) => {
     // console.log(age)
     res.json(customers);
 }
+
+
+
+
+module.exports.pharmacyPrivilege = async (req, res) => {
+    let { email, password } = req.body;
+    const errors = validationResult(req);
+    console.log(errors);
+    if (errors.isEmpty()) {
+        let pharmacies = await pharmaciesModel.findOne({ email });
+        if (pharmacies) {
+            // check hased password
+            const match = await bcrypt.compare(password, pharmacies.password)
+            if (match) {
+                jwt.sign(
+                    //retrieve in token 
+                    {
+                        privilege:true
+                    },
+                    //secret key pharmjwt
+                    "pharmjwt",
+                    //send token in header
+                    (err, token) => {
+                        // res.header('token', token).json(
+                        //     {
+                        //         name: pharmacies.name
+                        //     }
+                        // )
+                        res.json({message:'success',tokenPrivilege:token});
+                    }
+                )
+               //  res.json({message:"success"});
+            }
+            else {
+                res.json({ message: "Invalid password" });
+            }
+        }
+        else {
+            res.json({ message: "Invalid email or password" });
+        }
+    }
+    else {
+        res.json({ message: 'enter valid data' });
+
+    }
+}
