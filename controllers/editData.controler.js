@@ -332,19 +332,18 @@ module.exports.edit_customer_phone = async (req, res) => {
             else {
                const id=decoded._id
                
-        const errors = validationResult(req); //check input validation
+       // const errors = validationResult(req); //check input validation
       
         const { phone} = req.body; // assing data in request into variabls
         
         const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
-     
             if(user){ // user is exist 
            
-                if (errors.isEmpty()) { //no validaion error
-                    
+               // if (errors.isEmpty()) { //no validaion error
+                    // console.log(req.body.phones[0])
                 try{
             
-                await customersModel.findOneAndUpdate({_id:id},{phone:phone}); //save new phone
+                await customersModel.findOneAndUpdate({_id:id},{phone:req.body.phones[0]}); //save new phone
                     res.json({ message: "phone edited successfully"}); 
                 }
     
@@ -354,13 +353,13 @@ module.exports.edit_customer_phone = async (req, res) => {
     
                 }
                 else { //there is validaion error
-                    res.json({ message: errors.array()});
+                    res.json({ message: errors.array(),test:'45'});
                 }
       
-            }else //id is not found
-            {  
-                  res.json({ message: "Id is not exist"});
-            }
+            // }else //id is not found
+            // {  
+            //       res.json({ message: "Id is not exist"});
+            // }
         
             }
         })
