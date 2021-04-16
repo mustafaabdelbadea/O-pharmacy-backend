@@ -33,7 +33,7 @@ module.exports.pharmacySignin = async (req, res) => {
                         name: pharmacies.name,
                         phones: pharmacies.phones,
                         email:pharmacies.email,
-                        locationAsAderss: pharmacies.locationAsAderss,
+                        locationAsAddress: pharmacies.locationAsAddress,
                         locationAsCoordinates: pharmacies.locationAsCoordinates,
                         rate: pharmacies.rate,
                         
