@@ -28,8 +28,10 @@ module.exports.pharmacyGetOrders = (req, res) => {
                             } catch (error) {
                                 res.json(error);
                             }
-                        }
+                        }  
                     }
+                    if(i+1==notAgreedOrders.length)
+                            {res.json({ message: "no orders found" });}
                 }
             }
             else {
