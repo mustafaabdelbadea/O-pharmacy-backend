@@ -84,7 +84,7 @@ module.exports.pharmacySignup = async (req, res) => {
                 <!-- style="background-color: #f3f8ff;"  -->
                 <div class=" bg-dark w-50 mt-2 m-auto text-center p-3 rounded">
                     
-                    <img class="mb-2" style="width: 10rem; height: 10rem;" src="./checkmark-for-verification (1).svg" alt=""><br>
+                    <img class="mb-2" style="width: 10rem; height: 10rem;" src="../asstes/checkmark-for-verification (1).svg" alt=""><br>
                     <h3 class="text-white mb-4" >Verify this email address</h3>
             
                     <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/pharmacyVerifyEmail/${token}">verify</a>
@@ -218,7 +218,7 @@ module.exports.customerSignup = async (req, res) => {
                   <!-- style="background-color: #f3f8ff;"  -->
                   <div class=" bg-dark w-50 mt-2 m-auto text-center p-3 rounded">
                       
-                      <img class="mb-2" style="width: 10rem; height: 10rem;" src="./checkmark-for-verification (1).svg" alt=""><br>
+                      <img class="mb-2" style="width: 10rem; height: 10rem;" src="../asstes/checkmark-for-verification (1).svg" alt=""><br>
                       <h3 class="text-white mb-4" >Verify this email address</h3>
               
                       <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/pharmacyVerifyEmail/${token}">verify</a>
