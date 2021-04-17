@@ -44,7 +44,7 @@ module.exports.forgotPasswordCustomer = async (req, res) => {
                 
                     <div style="background-color: #f3f8ff;" class=" w-50 mt-2 m-auto text-center p-3 rounded">
                         
-                        <img class="mb-2" style="width: 10rem; height: 10rem;" src="../assetspadlock.svg" alt=""><br>
+                        <img class="mb-2" style="width: 10rem; height: 10rem;" src="../assets/padlock.svg" alt=""><br>
                         <h3 class=" mb-4" >Reset your password</h3>
                 
                         <h5>we received a request to reset your password</h5>
