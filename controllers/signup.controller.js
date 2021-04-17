@@ -73,13 +73,13 @@ module.exports.pharmacySignup = async (req, res) => {
                 html: `  
                 
                 
-            <div style=" color: #fff; background-color: #343A40; width: 50%; margin: auto; text-align: center; padding: 1.5rem; font-size: 1.5rem;  ">            
-                <!-- <img style="width: 10rem; height: 10rem;margin-bottom: 1.5rem;" src="./checkmark-for-verification (1).svg" alt=""><br> -->
-                <h3 class="text-white mb-4" >Verify this email address</h3>
-                <p style="margin-bottom: 1.5rem;"> Tap the button below to Verify your account </p>
+            <div style=" background-color: #f3f8ff; width: 50%; margin: auto; text-align: center; padding: 1.5rem; font-size: 1.5rem;  ">            
+                <!-- <img style=" width: 10rem; height: 10rem;margin-bottom: 1.5rem;" src="./checkmark-for-verification (1).svg" alt=""><br> -->
+                <h3 style="color:#000;" >Verify this email address</h3>
+                <p style="margin-bottom: 1.5rem;color:#000;"> Tap the button below to Verify your account </p>
                 <a href="http://localhost:4200/pharmacyVerifyEmail/${token}"><button type="button" style="cursor: pointer; color: #fff; background-color: rgb(40,167,69); margin-bottom: 1.2rem; border: transparent ; border-radius: 1rem; padding: 1rem;" >verify</button> </a>
             
-                <p style="margin-bottom: 1.5rem; font-size: medium;color:#000"> Thank you for joining us. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account.</p>
+                <p style="margin-bottom: 1.5rem; font-size: medium;color:#000;"> Thank you for joining us. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account.</p>
                   
             </div>
       
@@ -185,10 +185,10 @@ module.exports.customerSignup = async (req, res) => {
                   text: "Verify your mail", // plain text body
                   html: `     
               
-              <div style=" color: #fff; background-color: #343A40; width: 50%; margin: auto; text-align: center; padding: 1.5rem; font-size: 1.5rem;  ">            
+              <div style=" background-color: #f3f8ff; width: 50%; margin: auto; text-align: center; padding: 1.5rem; font-size: 1.5rem;  ">            
               <!-- <img style="width: 10rem; height: 10rem;margin-bottom: 1.5rem;" src="./checkmark-for-verification (1).svg" alt=""><br> -->
-              <h3 class="text-white mb-4" >Verify this email address</h3>
-              <p style="margin-bottom: 1.5rem;"> Tap the button below to Verify your account </p>
+              <h3 style="color:#000;" >Verify this email address</h3>
+              <p style="margin-bottom: 1.5rem;color:#000"> Tap the button below to Verify your account </p>
               <a href="http://localhost:4200/customerVerifyEmail/${token}"><button type="button" style="cursor: pointer; color: #fff; background-color: rgb(40,167,69); margin-bottom: 1.2rem; border: transparent ; border-radius: 1rem; padding: 1rem;" >verify</button> </a>
           
               <p style="margin-bottom: 1.5rem; font-size: medium;color:#000"> Thank you for joining us. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account.</p>
