@@ -138,7 +138,7 @@ module.exports.forgotPasswordPharmacy = async (req, res) => {
 
         <p class=" mb-4"> tap the button below to make new password </p>
 
-        <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/customerForgotPassword/${token}">reset password</a>
+        <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/pharmacyForgotPassword/${token}">reset password</a>
 
         <p class=" mb-4"> Thank you for joining us. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account.</p>
           

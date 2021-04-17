@@ -221,7 +221,7 @@ module.exports.customerSignup = async (req, res) => {
                       <img class="mb-2" style="width: 10rem; height: 10rem;" src="../asstes/checkmark-for-verification (1).svg" alt=""><br>
                       <h3 class="text-white mb-4" >Verify this email address</h3>
               
-                      <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/pharmacyVerifyEmail/${token}">verify</a>
+                      <a type="button" class="btn btn-success mb-4" href="http://localhost:4200/customerVerifyEmail/${token}">verify</a>
               
                       <p class="text-white mb-4"> Thank you for joining us. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account.</p>
                         
