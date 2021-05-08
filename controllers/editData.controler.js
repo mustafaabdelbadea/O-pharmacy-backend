@@ -480,8 +480,7 @@ module.exports.edit_Pharmacy_logo = async (req, res) => {
                
         const errors = validationResult(req); //check input validation
       
-        const { logo} = req.body; // assing data in request into variabls
-        
+        const  logo = req.body.photo; // assing data in request into variabls
         const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
      
             if(user){ // user is exist 
