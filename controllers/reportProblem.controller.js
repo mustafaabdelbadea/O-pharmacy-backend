@@ -14,22 +14,19 @@ module.exports.reportProblem=async(req,res)=>{
             // send mail with defined transport object
             let info = await transporter.sendMail({
               from: req.body.email, // sender address
-              to: "OpharmacyTeam@gmail.com", // list of receivers
+              to: ["OpharmacyTeam@gmail.com",req.body.email], // list of receivers
               subject: "Hello ✔", // Subject line
               text: "Hello world?", // plain text body
               html: `
-     
-       <div style="background-color:#000;color:#fff; padding:100px">
-       
-     <h1 style="margin:50px">  Sender: ${ req.body.email}</h1>
-     <h1 style="margin:50px">  Sender: ${ req.body.name}</h1>
-
-     <h2 style="margin:50px">  role: ${ req.body.role}</h2>
-     <h2 style="margin:50px"> phone   ${ req.body.phone}</h2>
-     <p style="margin:50px"> problem:   ${ req.body.problem}</p>
-
-       </div>
-   
+          
+      <div style=" background-color: #f3f8ff; width: 75%; margin: auto; text-align: center; padding: 1.5rem; font-size: 1.5rem;  ">            
+          <h3 style="color:#000" class="text-white mb-4" >report problem </h3>
+          <h3 style="color:#000" class="text-white mb-4" >O-Pharmacy just received a problem from ${ req.body.role} ${req.body.name}</h3>
+          <h4 style="color:#000; margin-bottom: 1.5rem;">problem details :"${req.body.problem}"</h4>
+          <h5 style="color:#000" >and we will contact with ${req.body.role} ${req.body.name} in sooner time as possible on <br> phone :"${ req.body.phone}" , email:"${req.body.email}"</h5>
+          <p style=" margin-bottom: 1.5rem; font-size: medium; color:#000"> Thanks you for interest. <br> <span style="font-size: large; font-weight: bold;">O-Pharmacy</span> hope you enjoy your account and your problem will take in consideration.</p>
+      </div>
+         
    
        `, // html body
 
