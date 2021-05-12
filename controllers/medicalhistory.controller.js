@@ -16,7 +16,7 @@ module.exports.medicalhistory = async (req, res) => {
    
     if (checkMedical) {
       try {
-        medicalhistory.findOneAndUpdate({customerID:_id},{doYouHaveDiabates, highBloodPreasure, highCholesterol,
+        await  medicalhistory.findOneAndUpdate({customerID:_id},{doYouHaveDiabates, highBloodPreasure, highCholesterol,
           doYouSmoke, doYouVape, doYouDrinkAlcohol,
           doYouUseDrugs, doYouExercize, whatIsYourMaritalStatus,
           bloodType, doYouHaveOtherHealthConditions, patientConcerns});
