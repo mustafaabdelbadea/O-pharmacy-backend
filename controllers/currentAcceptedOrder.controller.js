@@ -9,10 +9,8 @@ module.exports.customerCurrentOrders = (req, res) =>
     token =token.substring(6);
 
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
-        console.log('test')
         const customerId = decoded._id;//take customer id from header token 
         try {
-            console.log(customerId)
          let customerOrders;
          let pharmacyData;
 
@@ -20,20 +18,16 @@ module.exports.customerCurrentOrders = (req, res) =>
             { globalStatus: "accepted" },
             { globalStatus: "notAccepted" }
           ]})  
-         console.log(customerOrders)
          //find all accepted order that has same loged in customer
-        console.log('test')
          if (customerOrders.length == 0) {
             res.json({message:"no order founds"}) //no orders for this customer id
          }else{
             const pharmacyId=customerOrders[0].pharmaciesID[0].id;
             pharmacyData=await pharmaciesModel.findById({_id:pharmacyId}).select(" name phones logo rate locationAsAddress locationAsCoordinates");
-            console.log(pharmacyData);
             res.json({message:'success',customerOrders,pharmacyData})//retrieve customer orders history 
               }           
         } catch (error) {
             res.json(error)
-            console.log(error);
 
         }
     })

@@ -7,7 +7,6 @@ const pharmaciesModel = require("../models/pharmacies.model");
 
 module.exports.pharmacySignup = async (req, res) => {
 
-  console.log(req.body);
   //assign data in variables to save it 
   let { name,
     email,

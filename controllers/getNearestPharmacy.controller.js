@@ -12,7 +12,6 @@ module.exports.nearestPharmacy = async (req, res) => {
         //check if customer entered order or not
         if (orderByPhoto || orderByTexting) {
             let pharmacies = await pharmaciesModel.find({}).select("-password")
-            console.log(orderByPhoto, orderByTexting)
             //res.json(pharmacies[0].locationAsCoordinates.coordinates.lon);
             /*
             add id and coordinates into format 
@@ -30,7 +29,6 @@ module.exports.nearestPharmacy = async (req, res) => {
                     name: pharmacies[pharmacy]._id
                 })
             }
-            console.log(data)
             //format of data 
             const geo = new Geo(data, { setOptions: { id: 'name', lat: 'lat', lon: 'lon' } });
             //get customer by id 
@@ -63,9 +61,7 @@ module.exports.nearestPharmacy = async (req, res) => {
                             res.json({ message: "There is an order found can't order again" });
 
                         } else {
-                            console.log(geo.nearBy(customerLat, customerLon, 2000))
                             nearPharmacies = geo.nearBy(customerLat, customerLon, 2000); //near Pharmacies id
-                            console.log(nearPharmacies);
                             pharmaciesIdStatus = []//array of object for near Pharmacy id and order status for it
                             for (pharmacy = 0; pharmacy < nearPharmacies.length; pharmacy++) {
                                 pharmaciesIdStatus.push({
@@ -75,7 +71,6 @@ module.exports.nearestPharmacy = async (req, res) => {
                             }
                             //check if there any near pharmacy or not 
                             if (nearPharmacies.length != 0) {
-                                console.log(pharmaciesIdStatus);
                                 let order;
                                 if (orderByTexting && orderByPhoto) {
                                     order = new ordersModel({
@@ -110,12 +105,10 @@ module.exports.nearestPharmacy = async (req, res) => {
                                         report: null
                                     }) //take order
                                 }
-                                console.log(order);
                                 try {
                                     await order.save(); //save order in database
                                     res.json({ message: "Order saved" });
                                 } catch (error) {
-                                    console.log(error)
                                     res.json(error) //send error if it occur during saving in database
                                 }
                             } else {

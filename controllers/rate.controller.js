@@ -6,7 +6,6 @@ module.exports.rate = async (req, res) => {
     jwt.verify(token, 'pharmjwt', async (err, decoded) => {
         //get order id and rate from body
         const { orderId, rate, report } = req.body;
-        console.log(report)
         //pharmacy id
         let pharmacyId;
         try {

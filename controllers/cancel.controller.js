@@ -8,7 +8,6 @@ module.exports.cancelOrder = async (req, res) => {
     orderId = req.body.orderId;
     try {
         Order = await ordersModel.findOne({_id:orderId})// search for this order in database
-        //console.log(Order);  res.json(Order)
         if (Order) // if order found
           {
             if (Order.globalStatus == "accepted") // if order was accpted by pharmacy 

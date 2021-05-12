@@ -6,9 +6,7 @@ const pharmaciesModel = require("../models/pharmacies.model");
 
 module.exports.edit_Pharmacy_name = async (req, res) => {
     let token = req.header('token');
-    console.log(token);
     token =token.substring(6);
-    console.log(token);
 
     jwt.verify(token, 'pharmjwt', async(err, decoded) => {
         if (err) {
@@ -20,7 +18,6 @@ module.exports.edit_Pharmacy_name = async (req, res) => {
    const errors = validationResult(req); //check input validation
   
     const { name} = req.body; // assing data in request into variabls
-    console.log(req.body); 
  
     const user = await pharmaciesModel.find({_id:id}); //search for the pharmacy by id in token
  
@@ -175,7 +172,6 @@ module.exports.edit_customer_password = async (req, res) => {
             const errors = validationResult(req); //check input validation
       
             const {oldpassword, password ,confirmPassword} = req.body; // assing data in request into variabls
-            console.log(req.body);
 
             const user = await customersModel.find({_id:id}); //search for the pharmacy by id in token
          
@@ -288,9 +284,7 @@ module.exports.add_Pharmacy_phones = async (req, res) => {
                 if(user){ // user is exist 
 
                   let phones = await pharmaciesModel.find({_id:id}).select("phones");
-                    //  console.log(phones[0].phones.concat(newPhones))
                    phones=phones[0].phones.concat(newPhones);
-                   console.log(phones)             
                     if (errors.isEmpty()) { //no validaion error
                         
                     try{
@@ -340,7 +334,6 @@ module.exports.edit_customer_phone = async (req, res) => {
             if(user){ // user is exist 
            
                // if (errors.isEmpty()) { //no validaion error
-                    // console.log(req.body.phones[0])
                 try{
             
                 await customersModel.findOneAndUpdate({_id:id},{phone:req.body.phones[0]}); //save new phone

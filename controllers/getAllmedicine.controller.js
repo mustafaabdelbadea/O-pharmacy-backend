@@ -1,7 +1,7 @@
 const medicineModel=require('../models/medicine.model');
 module.exports.getAllMedicine=async (req,res)=>{
     
-    let medicine=await medicineModel.find({}).select("medicineName price");
+    let medicine=await medicineModel.find({}).select("medicineName");
  res.json(medicine);
 }
 

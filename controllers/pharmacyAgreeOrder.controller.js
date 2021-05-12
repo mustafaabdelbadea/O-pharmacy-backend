@@ -38,7 +38,6 @@ module.exports.pharmacyAgreeOrder = (req, res) => {
             //get all not accepted orders 
             notAgreedOrders = await ordersModel.find({ _id: orderId, globalStatus: "notAccepted" })
             //loop to all order and all pharmacies id
-            console.log(notAgreedOrders)
             if (notAgreedOrders.length != 0) {
                 for (let i = 0; i < notAgreedOrders.length; i++) {
                     for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
@@ -181,14 +180,11 @@ module.exports.pharmacyNotAgree = (req, res) => {
         try {
             //get all not accepted orders 
             notAgreedOrders = await ordersModel.find({ _id: orderId, globalStatus: "notAccepted" })
-            console.log(notAgreedOrders)
             //loop to all order and all pharmacies id
-            //console.log(notAgreedOrders)
             if (notAgreedOrders.length != 0) {
                 for (let i = 0; i < notAgreedOrders.length; i++) {
                     for (let j = 0; j < notAgreedOrders[i].pharmaciesID.length; j++) {
                         //search if pharmacy id in orders to get this order 
-                        console.log(notAgreedOrders[0].pharmaciesID[j], pharmacyId)
                         if (notAgreedOrders[i].pharmaciesID[j].id == pharmacyId && notAgreedOrders[i].pharmaciesID[j].status == "active") {
                             const selectedPharmacy = notAgreedOrders[i].pharmaciesID[j].id;
                             try {
@@ -201,16 +197,12 @@ module.exports.pharmacyNotAgree = (req, res) => {
                                 );
                                 let active = false;
                                 for (let p = 0; p < notAgreedOrders[i].pharmaciesID.length; p++) {
-                                    console.log('test1')
                                     if (notAgreedOrders[i].pharmaciesID[p].status == "active") {
-                                        console.log('test2');
                                         active = true;
                                         break;
                                     }
                                 }
-                                console.log(active)
                                 if (active) {
-                                    console.log('testa2222')
                                     res.json({ msg: 'order canceled' });
                                 }
                                 else {

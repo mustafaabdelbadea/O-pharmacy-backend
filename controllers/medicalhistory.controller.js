@@ -6,7 +6,6 @@ module.exports.medicalhistory = async (req, res) => {
   let token = req.header('token');
   token =token.substring(6);
   jwt.verify(token, 'pharmjwt', async (err, decoded) => {
-    console.log(req.body)
     const _id = decoded._id;
     const { doYouHaveDiabates, highBloodPreasure, highCholesterol,
       doYouSmoke, doYouVape, doYouDrinkAlcohol,
@@ -35,7 +34,6 @@ module.exports.medicalhistory = async (req, res) => {
         customerID: _id
       });
     try {
-      console.log(_id)
       await form.save();
       res.json('success');
     
