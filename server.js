@@ -30,6 +30,6 @@ mongoose.connect("mongodb+srv://opharmacy:opharmacy@opharmacycluster.p3rne.mongo
 //mongoose.connect("mongodb://localhost:27017/myDB3", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true)
 
-app.listen(3000, () => {
+app.listen(process.env.PORT||3000, () => {
     console.log('server is running now......')
 })
